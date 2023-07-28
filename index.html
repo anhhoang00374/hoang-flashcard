@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>flashcard</title>
     <style>
         *{
             padding: 0px;
@@ -78,7 +78,7 @@
         }
 
         .card-back{
-            font-size: 40px;
+            font-size: 37px;
             text-align: center;
             /* animation:flip-animate 1s linear ;   Làm xoay các ảnh */
             transform-style:preserve-3d;
@@ -152,7 +152,7 @@
         #right{
             position: absolute;
             right: 10px;
-            top: 10px;
+            top: -50px;
         }
         @keyframes flip-animate{
             0%{opacity: 0;}
@@ -303,7 +303,9 @@
                 </div>
             </div>
         </div>
+        <br>
         <div class="display-content" id="display-content">
+            
             <div class="num">
                 
                 <div class="num" id="num">0</div>
@@ -321,7 +323,7 @@
                     
                 </div>
                 <div class="card-back" id="card-content"">
-                    <br>
+
                     <p id="beto"></p>
                     <p id="kanji"></p>
                     <p id="hira"></p>
@@ -478,7 +480,7 @@
             create_lesson_kanji(obj5);
             let obj6 = create_kanji("働く","はたらく","làm việc","ĐỘNG", false);
             create_lesson_kanji(obj6);
-            let obj7 = create_kanji("勉強する","べんきょうすると","học tập","MIỄN CƯỜNG", false);
+            let obj7 = create_kanji("勉強する","べんきょうする","học tập","MIỄN CƯỜNG", false);
             create_lesson_kanji(obj7);
             let obj8 = create_kanji("強い","つよい","mạnh","CƯỜNG", false);
             create_lesson_kanji(obj8);
@@ -585,7 +587,7 @@
             create_lesson_kanji(obj7);
             let obj8 = create_kanji("飲み放題","のみほうだい","uống thoải mái","ẨM PHÓNG ĐỀ", false);
             create_lesson_kanji(obj8);
-            let obj9 = create_kanji("手紙","てがみ","thư","CHỈ", false);
+            let obj9 = create_kanji("手紙","てがみ","thư","THỦ CHỈ", false);
             create_lesson_kanji(obj9);
             let obj10 = create_kanji("紙","かみ","giấy","CHỈ", false);
             create_lesson_kanji(obj10);
@@ -622,7 +624,7 @@
             create_lesson_kanji(obj10);
             let obj11 = create_kanji("止める","とめる"," dừng","CHỈ", false);
             create_lesson_kanji(obj11);
-            let obj12 = create_kanji("立ち入り禁止","しようきんし","cấm ra vào","LẬP NHẬP CẤM CHỈ", false);
+            let obj12 = create_kanji("立ち入り禁止","たちいりきんし","cấm ra vào","LẬP NHẬP CẤM CHỈ", false);
             create_lesson_kanji(obj12);
             let obj13 = create_kanji("住む","すむ","sống","TRÚ", false);
             create_lesson_kanji(obj13);
@@ -654,7 +656,7 @@
             create_lesson_kanji(obj7);
             let obj8 = create_kanji("奥","おく","trong góc","ÁO", false);
             create_lesson_kanji(obj8);
-            let obj9 = create_kanji("妻","つま","vợ(minh)","THÊ", false);
+            let obj9 = create_kanji("妻","つま","vợ(mình)","THÊ", false);
             create_lesson_kanji(obj9);
             let obj10 = create_kanji("兄","あに","anh(mình))","HUYNH", false);
             create_lesson_kanji(obj10);
@@ -666,15 +668,15 @@
             create_lesson_kanji(obj13);
             let obj14 = create_kanji("弟さん","おとうとさん","em trai mình()","ĐỆ", false);
             create_lesson_kanji(obj14);
-            let obj15 = create_kanji("姉","あね","chi(mình)","TỈ", false);
+            let obj15 = create_kanji("姉","あね","chị(mình)","TỈ", false);
             create_lesson_kanji(obj15);
             let obj16= create_kanji("お姉さん","おねえさん","chị(người khác)","TỈ", false);
             create_lesson_kanji(obj16);
-            let obj17 = create_kanji("姉妹","しまい","chị em gái","TỈ MỤI", false);
+            let obj17 = create_kanji("姉妹","しまい","chị em gái","TỈ MUỘI", false);
             create_lesson_kanji(obj17);
-            let obj18 = create_kanji("妹","いもうと","em gái(mình)","MỤI", false);
+            let obj18 = create_kanji("妹","いもうと","em gái(mình)","MUỘI", false);
             create_lesson_kanji(obj18);
-            let obj19 = create_kanji("妹さん","いもうとさん","em gái(người khác)","MỤI", false);
+            let obj19 = create_kanji("妹さん","いもうとさん","em gái(người khác)","MUỘI", false);
             create_lesson_kanji(obj19);
             
 
@@ -736,7 +738,7 @@
             create_lesson_kanji(obj9);
             let obj10 = create_kanji("体重","たいじゅう","cân nặng","THỂ TRỌNG", false);
             create_lesson_kanji(obj10);
-            let obj11 = create_kanji("軽い","かるい","nhẹ","KHNH", false);
+            let obj11 = create_kanji("軽い","かるい","nhẹ","KHINH", false);
             create_lesson_kanji(obj11);
             let obj12 = create_kanji("近い","ちかい","gần","CẬN", false);
             create_lesson_kanji(obj12);
@@ -771,7 +773,7 @@
             create_lesson_kanji(obj8);
             let obj9 = create_kanji("不思議","ふしぎ","kì lạ,bí ấn","BẤT TƯ NGHỊ", false);
             create_lesson_kanji(obj9);
-            let obj10 = create_kanji("始まる","はじまる","băt đầu","THUỶ", false);
+            let obj10 = create_kanji("始まる","はじまる","bắt đầu","THUỶ", false);
             create_lesson_kanji(obj10);
             let obj11 = create_kanji("年末年始","ねんまつねんし","cuối năm cũ đầu năm mới","NIÊN MẠT NIÊN THUỶ", false);
             create_lesson_kanji(obj11);
@@ -819,7 +821,7 @@
             create_lesson_kanji(obj11);
             let obj12 = create_kanji("お皿","おさら","đĩa","MÃNH", false);
             create_lesson_kanji(obj12);
-            let obj13 = create_kanji("出発する","しゅっぱつする"," xuất phát","XUÁT PHÁT", false);
+            let obj13 = create_kanji("出発する","しゅっぱつする"," xuất phát","XUẤT PHÁT", false);
             create_lesson_kanji(obj13);
             let obj14 = create_kanji("発明","はつめい","phát minh","PHÁT MINH", false);
             create_lesson_kanji(obj14);
@@ -880,7 +882,7 @@
             create_lesson_kanji(obj4);
             let obj5 = create_kanji("池","いけ","ao","TRÌ", false);
             create_lesson_kanji(obj5);
-            let obj6 = create_kanji("電池","でんち","pin","TRÌ", false);
+            let obj6 = create_kanji("電池","でんち","pin","ĐIỆN TRÌ", false);
             create_lesson_kanji(obj6);
             let obj7 = create_kanji("公園","こうえん","công viên","CÔNG VIÊN", false);
             create_lesson_kanji(obj7);
@@ -973,7 +975,7 @@
             create_lesson_kanji(obj14);
             let obj15 = create_kanji("音楽","おんがく","âm nhạc","ÂM NHẠC", false);
             create_lesson_kanji(obj15);
-            let obj16= create_kanji("楽","らく","dễ dàng, đơn giản,thoải mái","LAC,NHẠC", false);
+            let obj16= create_kanji("楽","らく","dễ dàng, đơn giản,thoải mái","LẠC,NHẠC", false);
             create_lesson_kanji(obj16);
             let obj17 = create_kanji("太い","ふとい","mập","THÁI", false);
             create_lesson_kanji(obj17);
@@ -990,7 +992,7 @@
         function kanji42(){
             let obj = create_kanji("運ぶ","はこぶ","vận chuyển, di chuyển đồ vật","VẬN", false);
             create_lesson_kanji(obj);
-            let obj2 = create_kanji("運転手","うんてんしゅ","tài xế","TÀI XẾ", false);
+            let obj2 = create_kanji("運転手","うんてんしゅ","tài xế","VẬN CHUYỂN THỦ", false);
             create_lesson_kanji(obj2);
             let obj3= create_kanji("運動する","うんどうする","vận động(cơ thể)","VẬN ĐỘNG", false);
             create_lesson_kanji(obj3);
@@ -1132,7 +1134,7 @@
             create_lesson_kanji(obj7);
             let obj8 = create_kanji("特別","とくべつ","đặc biệt","ĐẶC BIỆT", false);
             create_lesson_kanji(obj8);
-            let obj9 = create_kanji("特急","とっきゅう","tàu tốc hành đăc biệt","ĐĂC CẤP", false);
+            let obj9 = create_kanji("特急","とっきゅう","tàu tốc hành đăc biệt","ĐẶC CẤP", false);
             create_lesson_kanji(obj9);
             let obj10 = create_kanji("特に","とくに","đặc biệt","ĐẶC", false);
             create_lesson_kanji(obj10);
@@ -1151,12 +1153,12 @@
         }
 
         function kanji46(){
-            let obj = create_kanji("","","","", false);
-            create_lesson_kanji(obj);
-            let obj2 = create_kanji("","","","", false);
-            create_lesson_kanji(obj2);
-            let obj3= create_kanji("","","","", false);
-            create_lesson_kanji(obj3);
+            // let obj = create_kanji("","","","", false);
+            // create_lesson_kanji(obj);
+            // let obj2 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj2);
+            // let obj3= create_kanji("","","","", false);
+            // create_lesson_kanji(obj3);
             let obj4 = create_kanji("何番","なんばん","số bao nhiêu","HÀ PHIÊN", false);
             create_lesson_kanji(obj4);
             let obj5 = create_kanji("順番","じゅんばん","thứ tự","THUẬN PHIÊN", false);
@@ -1210,22 +1212,22 @@
             create_lesson_kanji(obj8);
             let obj9 = create_kanji("丸い","まるい","tròn","HOÀN", false);
             create_lesson_kanji(obj9);
-            let obj10 = create_kanji("","","","", false);
-            create_lesson_kanji(obj10);
-            let obj11 = create_kanji("","","","", false);
-            create_lesson_kanji(obj11);
-            let obj12 = create_kanji("","","","", false);
-            create_lesson_kanji(obj12);
-            let obj13 = create_kanji("","","","", false);
-            create_lesson_kanji(obj13);
-            let obj14 = create_kanji("","","","", false);
-            create_lesson_kanji(obj14);
-            let obj15 = create_kanji("","","","", false);
-            create_lesson_kanji(obj15);
-            let obj16= create_kanji("","","","", false);
-            create_lesson_kanji(obj16);
-            let obj17 = create_kanji("","","","", false);
-            create_lesson_kanji(obj17);
+            // let obj10 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj10);
+            // let obj11 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj11);
+            // let obj12 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj12);
+            // let obj13 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj13);
+            // let obj14 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj14);
+            // let obj15 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj15);
+            // let obj16= create_kanji("","","","", false);
+            // create_lesson_kanji(obj16);
+            // let obj17 = create_kanji("","","","", false);
+            // create_lesson_kanji(obj17);
 
             create_list_kanji(kanji_lesson);
 
@@ -1255,7 +1257,7 @@
             create_lesson_kanji(obj10);
             let obj11 = create_kanji("毛糸","けいと","sợi tơ","MAO MỊCH", false);
             create_lesson_kanji(obj11);
-            let obj12 = create_kanji("糸","いと","sợi tơ","MỊCH", false);
+            let obj12 = create_kanji("糸","いと","sợi  chỉ","MỊCH", false);
             create_lesson_kanji(obj12);
             let obj13 = create_kanji("科学","かがく","khoa học","KHOA HỌC", false);
             create_lesson_kanji(obj13);
@@ -1290,7 +1292,7 @@
             create_lesson_kanji(obj10);
             let obj11 = create_kanji("府","ふ","thành phố(lớn hơn 県)","PHỦ", false);
             create_lesson_kanji(obj11);
-            let obj12 = create_kanji("東京","とうきょう","thành phó tokyo","ĐÔNG KINH", false);
+            let obj12 = create_kanji("東京","とうきょう","thành phố tokyo","ĐÔNG KINH", false);
             create_lesson_kanji(obj12);
             
             create_list_kanji(kanji_lesson);
@@ -1434,7 +1436,7 @@
             create_lesson_voca(obj8);
             let obj9 = create_kanji("連絡する","れんらくする","liên lạc","", false);
             create_lesson_voca(obj9);
-            let obj10 = create_kanji("気分がいい","きぶんがいい","きぶんがいい","", false);
+            let obj10 = create_kanji("気分がいい","きぶんがいい","cảm thấy thoải mái, cảm thấy khỏe","", false);
             create_lesson_voca(obj10);
             let obj11 = create_kanji("気分が悪い","気分が悪い","cảm thấy không thoải mái,cảm thấy mệt","", false);
             create_lesson_voca(obj11);
@@ -1572,7 +1574,7 @@
             create_lesson_voca(obj31);
             let obj32 = create_kanji("大好き","だいすき","rất thích","", false);
             create_lesson_voca(obj32);
-            let obj33 = create_kanji("主人公","主人公","nhân vật chính","", false);
+            let obj33 = create_kanji("主人公","しゅじんこう","nhân vật chính","", false);
             create_lesson_voca(obj33);
             let obj34 = create_kanji("自由に","じゆうに","tự do, tùy thích","", false);
             create_lesson_voca(obj34);
@@ -1601,7 +1603,7 @@
             create_lesson_voca(obj3);
             let obj4 = create_kanji("選ぶ","えらぶ","lựa, lựa chọn","", false);
             create_lesson_voca(obj4);
-            let obj5 = create_kanji("大学に通う","だいがくにかよう","","", false);
+            let obj5 = create_kanji("大学に通う","だいがくにかよう","đi học [đại học]","", false);
             create_lesson_voca(obj5);
             let obj6 = create_kanji("メモする","","ghi lại","", false);
             create_lesson_voca(obj6);
@@ -1655,7 +1657,7 @@
             create_lesson_voca(obj30);
             let obj31 = create_kanji("息子","むすこ","con trai mình","", false);
             create_lesson_voca(obj31);
-            let obj32 = create_kanji("息子さん","息子さん","con trai người khác","", false);
+            let obj32 = create_kanji("息子さん","むすこさん","con trai người khác","", false);
             create_lesson_voca(obj32);
             let obj33 = create_kanji("娘","むすめ","con gái mình","", false);
             create_lesson_voca(obj33);
@@ -1691,7 +1693,7 @@
             create_lesson_voca(obj48);
             let obj49 = create_kanji("面倒くさい","めんどくさい","Phiền phức","", false);
             create_lesson_voca(obj49);
-            let obj50 = create_kanji("Phiền phức","つきあう","Hẹn hò","", false);
+            let obj50 = create_kanji("付き合う","つきあう","Hẹn hò","", false);
             create_lesson_voca(obj50);
             let obj51 = create_kanji("誘います","さそいます","Mời, rủ","", false);
             create_lesson_voca(obj51);
@@ -1798,7 +1800,7 @@
             create_lesson_voca(obj4);
             let obj5 = create_kanji("植える","うえる","trồng","", false);
             create_lesson_voca(obj5);
-            let obj6 = create_kanji("戻す","もどす","もどす","", false);
+            let obj6 = create_kanji("戻す","もどす","để lại","", false);
             create_lesson_voca(obj6);
             let obj7 = create_kanji("まとめる","","tóm tắt, tổng hợp/thu dọn (hành lý)","", false);
             create_lesson_voca(obj7);
@@ -1936,7 +1938,7 @@
             create_lesson_voca(obj29);
             let obj30 = create_kanji("記念日","きねんび","Ngày kỉ niệm","", false);
             create_lesson_voca(obj30);
-            let obj31 = create_kanji("プロポーズ","","プロポーズ","", false);
+            let obj31 = create_kanji("プロポーズ","","Tỏ tình","", false);
             create_lesson_voca(obj31);
             let obj32 = create_kanji("乾杯","かんぱい","Cạn ly","", false);
             create_lesson_voca(obj32);
@@ -1944,7 +1946,7 @@
             create_lesson_voca(obj33);
             let obj34 = create_kanji("村","むら","Làng","", false);
             create_lesson_voca(obj34);
-            let obj35 = create_kanji("田舎","田舎","Nông thôn","", false);
+            let obj35 = create_kanji("田舎","いなか","Nông thôn","", false);
             create_lesson_voca(obj35);
             
 
@@ -2178,7 +2180,7 @@
             create_lesson_voca(obj2);
             let obj3 = create_kanji("[忘れ物に~]気がつく","[わすれものに~]きがつく","để ý đến, chú ý đến [đồ để quên]","", false);
             create_lesson_voca(obj3);
-            let obj4 = create_kanji("[醤油を~]つける","[しょうゆを~][しょうゆを~]","chấm [xì dầu]","", false);
+            let obj4 = create_kanji("[醤油を~]つける","[しょうゆを~]つける","chấm [xì dầu]","", false);
             create_lesson_voca(obj4);
             let obj5 = create_kanji("[鍵が~]見つかる","[かぎが~]みつかる","tìm thấy [chìa khóa]","", false);
             create_lesson_voca(obj5);
@@ -2208,7 +2210,7 @@
             create_lesson_voca(obj17);
             let obj18 = create_kanji("黄色","きいろ","màu vàng","", false);
             create_lesson_voca(obj18);
-            let obj19 = create_kanji("茶色","ちゃいろ","ちゃいろ","", false);
+            let obj19 = create_kanji("茶色","ちゃいろ","màu nâu","", false);
             create_lesson_voca(obj19);
             let obj20 = create_kanji("醤油","しょうゆ","xì dầu","", false);
             create_lesson_voca(obj20);
@@ -2252,7 +2254,7 @@
             create_lesson_voca(obj39);
             let obj40 = create_kanji("火を消します","ひをけします","Tắt lửa","", false);
             create_lesson_voca(obj40);
-            let obj41 = create_kanji("丼","どんぶり","Bát tô","", false);
+            let obj41 = create_kanji("丼","どんぶり","Bát、tô","", false);
             create_lesson_voca(obj41);
             let obj42 = create_kanji("載せます","のせます","Chất lên, đặt lên","", false);
             create_lesson_voca(obj42);
@@ -2281,7 +2283,7 @@
             create_lesson_voca(obj8);
             let obj9 = create_kanji("[花が~]咲く","[はなが~]さく","[hoa] nở","", false);
             create_lesson_voca(obj9);
-            let obj10 = create_kanji("向こう","むこう","","đằng ấy, phía đối diện", false);
+            let obj10 = create_kanji("向こう","むこう","đằng ấy, phía đối diện","", false);
             create_lesson_voca(obj10);
             let obj11 = create_kanji("島","しま","đảo","", false);
             create_lesson_voca(obj11);
@@ -2305,7 +2307,7 @@
             create_lesson_voca(obj20);
             let obj21 = create_kanji("ふりがな","","chữ furigana","", false);
             create_lesson_voca(obj21);
-            let obj22 = create_kanji("chữ furigana","せつび","thiết bị","", false);
+            let obj22 = create_kanji("設備","せつび","thiết bị","", false);
             create_lesson_voca(obj22);
             let obj23 = create_kanji("紐","ひも","sợi dây","", false);
             create_lesson_voca(obj23);
@@ -2335,7 +2337,7 @@
             create_lesson_voca(obj35);
             let obj36 = create_kanji("おかゆ","","Cháo","", false);
             create_lesson_voca(obj36);
-            let obj37 = create_kanji("関係","かんけい","かんけい","", false);
+            let obj37 = create_kanji("関係","かんけい","Quan hệ","", false);
             create_lesson_voca(obj37);
             
             create_list_voca(vocabulary_lesson);
@@ -2578,7 +2580,7 @@
             create_lesson_voca(obj37);
             let obj38 = create_kanji("不思議[な]","ふしぎ[な]","kỳ lạ","", false);
             create_lesson_voca(obj38);
-            let obj39 = create_kanji("年齢","ねんれい","ねんれい","", false);
+            let obj39 = create_kanji("年齢","ねんれい","tuổi tác","", false);
             create_lesson_voca(obj39);
             let obj40 = create_kanji("仕方","しかた","cách làm","", false);
             create_lesson_voca(obj40);
@@ -2627,7 +2629,7 @@
             create_lesson_voca(obj13);
             let obj14 = create_kanji("邪魔","じゃま","vướng, vướng víu","", false);
             create_lesson_voca(obj14);
-            let obj15 = create_kanji("硬い","かたい","かたい","", false);
+            let obj15 = create_kanji("硬い","かたい","cứng","", false);
             create_lesson_voca(obj15);
             let obj16 = create_kanji("柔らかい","やわらかい","mềm","", false);
             create_lesson_voca(obj16);
@@ -2677,7 +2679,7 @@
             create_lesson_voca(obj38);
             let obj39 = create_kanji("伝統的","でんとうてき","mang tính truyền thống","", false);
             create_lesson_voca(obj39);
-            let obj40 = create_kanji("都合","つごう","つごう","", false);
+            let obj40 = create_kanji("都合","つごう","Thuận tiện","", false);
             create_lesson_voca(obj40);
             let obj41 = create_kanji("インフルエンザ","","Dịch cúm","", false);
             create_lesson_voca(obj41);
@@ -2708,7 +2710,7 @@
             create_lesson_voca(obj8);
             let obj9 = create_kanji("コンテスト","","cuộc thi","", false);
             create_lesson_voca(obj9);
-            let obj10 = create_kanji("相談する","そうだんする","そうだんする","", false);
+            let obj10 = create_kanji("相談する","そうだんする","nói chuyện, thảo luận","", false);
             create_lesson_voca(obj10);
             let obj11 = create_kanji("動かす","うごかす","di chuyển","", false);
             create_lesson_voca(obj11);
@@ -2829,9 +2831,9 @@
             create_lesson_voca(obj17);
             let obj18 = create_kanji("餌","えさ","thức ăn (cho động vật)","", false);
             create_lesson_voca(obj18);
-            let obj19 = create_kanji("おもちゃ","","đồ chơi","sách tranh", false);
+            let obj19 = create_kanji("おもちゃ","","đồ chơi","", false);
             create_lesson_voca(obj19);
-            let obj20 = create_kanji("絵本","えほん","","", false);
+            let obj20 = create_kanji("絵本","えほん","sách tranh","", false);
             create_lesson_voca(obj20);
             let obj21 = create_kanji("絵はがき","えはがき","bưu thiếp tranh, bưu thiếp ảnh","", false);
             create_lesson_voca(obj21);
@@ -2944,9 +2946,9 @@
             create_lesson_voca(obj18);
             let obj19 = create_kanji("平和","へいわ","hòa bình","", false);
             create_lesson_voca(obj19);
-            let obj20 = create_kanji("hòa bình","もくてき","mục đích","", false);
+            let obj20 = create_kanji("目的","もくてき","mục đích","", false);
             create_lesson_voca(obj20);
-            let obj21 = create_kanji("論文","ろんぶん","ろんぶん","luận văn", false);
+            let obj21 = create_kanji("論文","ろんぶん","luận văn","", false);
             create_lesson_voca(obj21);
             let obj22 = create_kanji("楽しみ","たのしみ","niềm vui","", false);
             create_lesson_voca(obj22);
@@ -2988,7 +2990,7 @@
             create_lesson_voca(obj40);
             let obj41 = create_kanji("インスタントラーメン","","Mì ăn liền","", false);
             create_lesson_voca(obj41);
-            let obj42 = create_kanji("丼","どんぶり","Bát tô","", false);
+            let obj42 = create_kanji("丼","どんぶり","Bát、tô","", false);
             create_lesson_voca(obj42);
             let obj43 = create_kanji("麺","めん","Mì sợi","", false);
             create_lesson_voca(obj43);
@@ -3014,7 +3016,7 @@
             create_lesson_voca(obj4);
             let obj5 = create_kanji("[紐が~]切れる","[ひもが~]きれる","bị đứt [sợi dây ~]","", false);
             create_lesson_voca(obj5);
-            let obj6 = create_kanji("[ボタンが~]とれる","bị tuột ra, bị bung ra [cúc áo ~]","","", false);
+            let obj6 = create_kanji("[ボタンが~]とれる","","bị tuột ra, bị bung ra [cúc áo ~]","", false);
             create_lesson_voca(obj6);
             let obj7 = create_kanji("[荷物が~]落ちる","[にもつが~]おちる","bị rơi [hành lí ~ ]","", false);
             create_lesson_voca(obj7);
@@ -3026,7 +3028,7 @@
             create_lesson_voca(obj10);
             let obj11 = create_kanji("変[な]","へん[な]","lạ","", false);
             create_lesson_voca(obj11);
-            let obj12 = create_kanji("しあわせ[な]","幸せ[な]","hạnh phúc","", false);
+            let obj12 = create_kanji("幸せ[な]","しあわせ[な]","hạnh phúc","", false);
             create_lesson_voca(obj12);
             let obj13 = create_kanji("楽[な]","らく[な]","nhàn nhã","", false);
             create_lesson_voca(obj13);
@@ -3123,7 +3125,7 @@
             create_lesson_voca(obj31);
             let obj32 = create_kanji("別れる","わかれる","Chia tay","", false);
             create_lesson_voca(obj32);
-            let obj33 = create_kanji("縁起が悪い","えんぎがわるい","","Điềm xui", false);
+            let obj33 = create_kanji("縁起が悪い","えんぎがわるい","Điềm xui","", false);
             create_lesson_voca(obj33);
             
 
@@ -3241,7 +3243,7 @@
             create_lesson_voca(obj25);
             let obj26 = create_kanji("信号","しんごう","đèn tín hiệu","", false);
             create_lesson_voca(obj26);
-            let obj27 = create_kanji("用意する","よういする","よういする","", false);
+            let obj27 = create_kanji("用意する","よういする","Chuẩn bị sẵn","", false);
             create_lesson_voca(obj27);
             let obj28 = create_kanji("ブランド","","Thương hiệu","", false);
             create_lesson_voca(obj28);
@@ -3261,7 +3263,7 @@
         }
 
         function voca47(){
-            let obj = create_kanji("[風が~]吹く","[かぜが~]ふく","","", false);
+            let obj = create_kanji("[風が~]吹く","[かぜが~]ふく","thổi [gió ~]","", false);
             create_lesson_voca(obj);
             let obj2 = create_kanji("[ごみが~]燃える","[ごみが~]もえる","cháy [rác ~]","", false);
             create_lesson_voca(obj2);
