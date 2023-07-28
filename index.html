@@ -1,0 +1,3955 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+           
+        
+        }
+        .container{
+            padding: 20px;
+        }
+        .header {
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: green;
+            color: white;
+            text-shadow: 10px 10px 10px black;
+            margin: 10px;
+            box-shadow: 10px 10px 10px black;
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 40px;;
+            color: green;
+            text-shadow: 10px 10px 10px black;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .select-box{
+            margin-top: 10px;
+        }
+
+        .num{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 30px;
+        }
+        .display-content{
+        
+            width: 100%;
+            
+        }
+        .flashcard {
+            margin-top: 10px;
+            width: 100%;
+            height: 300px;
+            border: 3px solid rgb(16, 141, 16);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            box-shadow: 10px 10px 10px black;
+            perspective:880px;
+            position: relative;
+        }
+
+        .card-back{
+            font-size: 40px;
+            text-align: center;
+            /* animation:flip-animate 1s linear ;   Làm xoay các ảnh */
+            transform-style:preserve-3d;
+            transition-duration: 0.5s;
+        }
+        #beto, #hira{
+            font-size: 16px;
+        }
+        .flashcard:hover {
+            background-color: #f5f5f5;
+        }
+
+        .navigation{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+           
+        }
+        .nav{
+            position: fixed;
+           
+            bottom: 100px;
+        }
+
+        .remembered{
+            margin-right: 30px;
+        }
+        select{
+            border: none;
+            background: green;
+            color: whitesmoke;
+            padding: 5px ;
+            border-radius: 5px;
+            font-size: 22px;
+            box-shadow: 10px 10px 10px black;
+        }
+
+        .btn{
+            font-size: 22px;
+            padding: 5px 10px;
+            box-shadow: 2px 2px 2px black;
+            color: white;
+            text-shadow: 2px 2px 2px black;
+            border-radius:5px ;
+        }
+        .remembered{
+            background: green;
+            
+        }
+
+        .forget{
+            background: red;
+        }
+        .again{
+            background: green;
+        }
+
+        .check{
+            display: none;
+        }
+        #vn,#beto,#kanji,#hira{
+            display: none;
+        }
+
+        .right{
+            display: flex;
+            justify-content: right;
+            font-size: 20px;
+        }
+        #right{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        @keyframes flip-animate{
+            0%{opacity: 0;}
+            100%{opacity: 1;}
+        }
+
+       
+        /* điều khiển các hiệu ứng của thuộc tính animation */
+        /* .flashcard .card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard .card-front,
+        .flashcard .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .flashcard .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .select-box {
+            margin-bottom: 10px;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .content .word {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .content .phonetic {
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .content .meaning {
+            font-size: 14px;
+        }
+
+        .remembered {
+            color: green;
+            font-weight: bold;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <p>Hoang先生</p>
+            </div>
+            <div class="grade">
+                <p>300623</p>
+            </div>
+        </div>
+        <div class="title">
+            <p>頑張りましょう</p>
+        </div>
+        <div class="content">
+            <div class="select-box">
+                <select id="content-select" onchange="changeContent()">
+                    <option value="grammar" disabled selected>Chọn bài học</option>
+                    <option value="vocabulary">Từ vựng</option>
+                    <option value="kanji">Kanji</option>
+                </select>
+            </div>
+            <div class="content-by-lesson">
+                <div class="select-box">
+                    <select id="start-select" onchange="updateEndSelect()">
+                        <option value="26">Bài 26</option>
+                        <option value="27">Bài 27</option>
+                        <option value="28">Bài 28</option>
+                        <option value="29">Bài 29</option>
+                        <option value="30">Bài 30</option>
+                        <option value="31">Bài 31</option>
+                        <option value="32">Bài 32</option>
+                        <option value="33">Bài 33</option>
+                        <option value="34">Bài 34</option>
+                        <option value="35">Bài 35</option>
+                        <option value="36">Bài 36</option>
+                        <option value="37">Bài 37</option>
+                        <option value="38">Bài 38</option>
+                        <option value="39">Bài 39</option>
+                        <option value="40">Bài 40</option>
+                        <option value="41">Bài 41</option>
+                        <option value="42">Bài 42</option>
+                        <option value="43">Bài 43</option>
+                        <option value="44">Bài 44</option>
+                        <option value="45">Bài 45</option>
+                        <option value="46">Bài 46</option>
+                        <option value="47">Bài 47</option>
+                        <option value="48">Bài 48</option>
+                        <option value="49">Bài 49</option>
+                        <option value="50">Bài 50</option>
+                    </select>
+                </div>
+
+                <div class="select-box">
+                    <select id="end-select" onchange="updateStartSelect()">
+                        <option value="26">Bài 26</option>
+                        <option value="27">Bài 27</option>
+                        <option value="28">Bài 28</option>
+                        <option value="29">Bài 29</option>
+                        <option value="30">Bài 30</option>
+                        <option value="31">Bài 31</option>
+                        <option value="32">Bài 32</option>
+                        <option value="33">Bài 33</option>
+                        <option value="34">Bài 34</option>
+                        <option value="35">Bài 35</option>
+                        <option value="36">Bài 36</option>
+                        <option value="37">Bài 37</option>
+                        <option value="38">Bài 38</option>
+                        <option value="39">Bài 39</option>
+                        <option value="40">Bài 40</option>
+                        <option value="41">Bài 41</option>
+                        <option value="42">Bài 42</option>
+                        <option value="43">Bài 43</option>
+                        <option value="44">Bài 44</option>
+                        <option value="45">Bài 45</option>
+                        <option value="46">Bài 46</option>
+                        <option value="47">Bài 47</option>
+                        <option value="48">Bài 48</option>
+                        <option value="49">Bài 49</option>
+                        <option value="50">Bài 50</option>
+                        
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="display-content" id="display-content">
+            <div class="num">
+                
+                <div class="num" id="num">0</div>
+                
+        
+            </div>
+            <div class="flashcard" id="flashcard" onclick="rotate()">
+                <div id="right">
+                    <div class="right">
+                        <label onclick="event.stopPropagation()" for="betoBtn">Hán việt:</label><input type="checkbox" checked name="" id="betoBtn" onclick="event.stopPropagation()" >
+                    </div>
+                    <div class="right">
+                        <label onclick="event.stopPropagation()" for="hiraBtn">Hiragana:</label><input type="checkbox" checked name="" id="hiraBtn" onclick="event.stopPropagation()">
+                    </div>
+                    
+                </div>
+                <div class="card-back" id="card-content"">
+                    <br>
+                    <p id="beto"></p>
+                    <p id="kanji"></p>
+                    <p id="hira"></p>
+                    <p id="vn"></p>
+                </div>
+                <div class="check" id="card-check">
+                    <p id="check-forget">ban da thuoc het</p>
+                    <button class="btn again" id="again" onclick="again()">Làm lại</button>
+                </div>
+            </div>
+
+            <div class="navi" id="navi">
+                
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="navigation" id="navigation">
+            <button id="remembered" class="btn remembered" onclick="remembered()">Đã thuộc</button>
+            <button id="forget" class="btn forget" onclick="forget()"> Chưa thuộc</button>
+        </div>
+        
+    </div>
+
+
+    <script>
+        let list_kanji = [];
+        let kanji_lesson = [];
+        let list_vocabulary = [];
+        let vocabulary_lesson = [];
+        let list_grammar = [];
+        let grammar_lesson = [];
+        let display_list = [];
+        let current_index = 0;
+        let current_list = [];
+        let forget_list = [];
+        let check_forget_list = [];
+        let start_lesson = 0;
+        let end_lesson = 0;
+        let curent_content = "";
+        let rotationDegree = 0;
+        let isDisplayContent = true;
+        initKanji();
+        initVoca();
+        toggleBeto();
+
+        //thêm hán tự
+        function initKanji(){
+           kanji26();
+           kanji27();
+           kanji28();
+           kanji29();
+           kanji30();
+           kanji31();
+           kanji32();
+           kanji33();
+           kanji34();
+           kanji35();
+           kanji36();
+           kanji37();
+           kanji38();
+           kanji39();
+           kanji40();
+           kanji41();
+           kanji42();
+           kanji43();
+           kanji44();
+           kanji45();
+           kanji46();
+           kanji47();
+           kanji48();
+           kanji49();
+           kanji50();
+
+        //    kanji27();
+        }
+
+        function kanji26(){
+            let obj = create_kanji("会う","あう","gặp","HỘI", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("会社","かいしゃ"," công ty","HỘI XÃ", false);
+            create_lesson_kanji(obj2);
+            let obj3 = create_kanji("動く","うごく","chuyển động","ĐỘNG", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("自動車","じどうしゃ"," xe ô tô","TỰ ĐỘNG XE", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("歩く","あるく","đi bộ","BỘ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("散歩する","さんぽする"," dạo bộ","TẢN BỘ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("急ぐ","いそぐ","gấp","CẤP", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("急行","きゅうこう"," tàu tốc hành"," CẤP HÀNH", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("切る","きる"," cắt","THIẾT", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("切符","きっぷ","vé tàu"," THIẾT PHÙ", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("親切","しんせつ","tốt bụng","THÂN THIẾT", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("送る","おくる","gửi","TỐNG", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("習う","ならう","học","TẬP", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("練習","れんしゅう","luyện tập","LUYỆN TẬP", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("歌う","うたう","hát","CA", false);
+            create_lesson_kanji(obj15);
+            let obj16 = create_kanji("歌手","かしゅ","ca sĩ","CA THỦ", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("終わる","おわる","xong","CHUNG", false);
+            create_lesson_kanji(obj17);
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+        
+        function kanji27(){
+            let obj = create_kanji("社員","しゃいん"," nhân viên công ty"," XÃ VIÊN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("銀行員","ぎんこういん"," nhân viên ngân hàng","NGÂN HÀNG VIÊN", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("医学","いがく","y học","Y HỌC", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("病気","びょうき","bệnh","BỆNH KHÍ", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("病院","びょういん","bệnh viện","BỆNH VIỆN", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("入院する","にゅういんする","nhập viện","NHẬP VIỆN", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("国","くに","đất nước","QUỐC", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("中国","ちゅうごく","Trung Quốc","TRUNG QUỐC", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("世話","せわ","chăm sóc","THẾ THOẠI", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("世界中","せかいじゅう"," toàn thế giới"," THẾ GIỚI TRUNG", false);
+            create_lesson_kanji(obj10);
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji28(){
+            let obj = create_kanji("教える","おしえる","dạy","Giáo", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("教会","きょうかい"," nhà thờ","GIÁO HỘI", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("研究室","けんきゅうしつ"," phòng nghiên cứu","NGHIÊN CỨU THẤT", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("売り場","うりば"," quầy bán","MẠI TRƯỜNG", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("自動販売機","じどうはんばいき"," máy bán hàng tự động","TỰ ĐỘNG PHIẾN MẠI CƠ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("働く","はたらく","làm việc","ĐỘNG", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("勉強する","べんきょうすると","học tập","MIỄN CƯỜNG", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("強い","つよい","mạnh","CƯỜNG", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("泳ぐ","およぐ","bơi","Vịnh", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("水泳","すいえい","bơi lội","THUỶ VỊNH", false);
+            create_lesson_kanji(obj10);
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+        
+        function kanji29(){
+            let obj = create_kanji("部屋","へや","căn phòng","BỘ ỐC", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("部長","ぶちょう","trưởng phòng","BỘ TRƯỞNG", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("屋上","おくじょう","sân thượng","ỐC THƯỢNG", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("教室","きょうしつ","phòng học","GIÁO THẤT", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("売り場","うりば","quầy bán","MẠI TRƯỜNG", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("駐車場","ちゅうしゃじょう","bãi đầu xe","TRÚ XA TRƯỜNG", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("元の所","もとのところ","chổ cũ","NGUYÊN SỞ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("台所","だいどころ","nhà bếp","ĐÀI SỞ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("事務所","じむしょ","văn phòng","SỰ VỤ SỞ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("場所","ばしょ","chỗ, địa điểm","TRƯỜNG SỞ", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("図書館","としょかん","thư viện","ĐỒ THƯ QUÁN", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("地図","ちず","bản đồ","ĐỊA ĐỒ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("家","いえ","nhà","GIA", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("家賃","やちん","tiền thuê nhà","GIA NHẪM", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("家内","かない","vợ mình","GIA NỘI", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("家族","かぞく","gia đình","GIA TỘC", false);
+            create_lesson_kanji(obj16);
+            
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+        
+        function kanji30(){
+            let obj = create_kanji("毎日","まいにち","mỗi ngày","MỖI NHẬT", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("毎朝","まいあさ","mỗi sáng","MỖI TRIỀU", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("朝","あさ","buổi sáng","TRIỀU", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("昼","ひる","buổi trưa","TRÚ", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("晩ご飯","ばんごはん","cơm tối","VÃN PHẠN", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("夜","よる","khuya","DẠ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("夜行バス","やこうバス","xe buýt đêm","DẠ HÀNH", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("午前","ごぜん","buổi sáng","ngọ tiền", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("名前","なまえ","tên","DANH TIỀN", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("駅前","えきまえ","trước ga","DỊCH TIỀN", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("後ろ","うしろ","phía sau","HẬU", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("後で","あとで","để sau","HẬU", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("午後","ごご"," buổi chiều","NGỌ HẬU", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("先週","せんしゅう","tuần trước","TIÊN CHU", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("来週","らいしゅう","tuần sau","LAI CHU", false);
+            create_lesson_kanji(obj15);
+        
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji31(){
+            let obj = create_kanji("試験","しけん","kiểm tra,kì thi","THÍ NGHIỆM", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("試合","しあい"," trận đấu","THÍ HỢP", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("経験","けいけん"," kinh nghiệm","KINH NGHIỆM", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("映画館","えいがかん","rạp chiếu phim","ÁNH HOẠ/HOẠCH QUÁN", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("計画","けいかく","kế hoạch","KẾ HOẠ/HOẠCH", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("宿題","しゅくだい"," bài tập về nhà","ĐỀ TÚC", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("問題","もんだい","vấn đề","VẤN ĐỀ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("飲み放題","のみほうだい","uống thoải mái","ẨM PHÓNG ĐỀ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("手紙","てがみ","thư","CHỈ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("紙","かみ","giấy","CHỈ", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("英語","えいご","tiếng anh","ANH NGỮ", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("何語","なにご","ngôn ngữ gì","HÀ NGỮ", false);
+            create_lesson_kanji(obj12);
+            
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji32(){
+            let obj = create_kanji("待つ","まつ","đợi,chờ","ĐÃI", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("招待","しょうたい","mời,lời mời","CHIÊU ĐÃI", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("開ける","あける","mở, tạo khoảng trống","KHAI", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("開く","ひらく","mở, tổ chức(lớp học))","KHAI", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("開発","かいはつ","phát triển,tạo mới gì đó","KHAI PHÁT", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("閉める","しめる","đóng","BẾ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("閉じる","とじる"," nhắm(mắt)","BẾ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("持って行く","もっていく","mang đi","TRÌ HÀNH", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("使う","つかう","dùng","SỨ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("使用中","しようちゅう","đang sử dụng","SỬ DỤNG TRUNG", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("止める","とめる"," dừng","CHỈ", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("立ち入り禁止","しようきんし","cấm ra vào","LẬP NHẬP CẤM CHỈ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("住む","すむ","sống","TRÚ", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("住所","じゅうしょ","địa chỉ","TRÚ SỞ", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("乗る","のる","lên(xe)","THỪA", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("降りる","おりる","xuống(xe)","GIÁNG", false);
+            create_lesson_kanji(obj16);
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji33(){
+            let obj = create_kanji("私","わたし","tôi","TƯ", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("私立","しりつ","tư nhân lập ra","TƯ LẬP", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("夫","おっと","chồng(mình)","PHU", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("大丈夫","だいじょうぶ","ổn, không sao","ĐẠI TRƯỢNG PHU", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("主","ぬし","chủ(thú nuôi)","CHỦ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("主に","おもに","chủ yếu","CHỦ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("ご主人","ごしゅじん","chồng (người khác)","CHỦ NHÂN", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("奥","おく","trong góc","ÁO", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("妻","つま","vợ(minh)","THÊ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("兄","あに","anh(mình))","HUYNH", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("お兄さん","おにいさん","anh(người khác)","HUYNH", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("兄弟","きょうだい","anh em","HUYNH ĐỆ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("弟","おとうと","em trai(mình)","ĐỆ", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("弟さん","おとうとさん","em trai mình()","ĐỆ", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("姉","あね","chi(mình)","TỈ", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("お姉さん","おねえさん","chị(người khác)","TỈ", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("姉妹","しまい","chị em gái","TỈ MỤI", false);
+            create_lesson_kanji(obj17);
+            let obj18 = create_kanji("妹","いもうと","em gái(mình)","MỤI", false);
+            create_lesson_kanji(obj18);
+            let obj19 = create_kanji("妹さん","いもうとさん","em gái(người khác)","MỤI", false);
+            create_lesson_kanji(obj19);
+            
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji34(){
+            let obj = create_kanji("春","はる","mùa xuân","XUÂN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("夏","なつ","mùa hè","HẠ", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("秋","あき","mùa thu","THU", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("冬","ふゆ","mùa đông","ĐÔNG", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("雪","ゆき","tuyết","TUYẾT", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("海","うみ","biển","HẢI", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("北海道","ほっかいどう","hokkaido","BẮC HẢI ĐẠO", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("天気予報","てんきよほう","dự báo thời tiết","THIÊN KHÍ DƯ BÁO", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("空","そら","bầu trời","KHÔNG", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("空く","あく","trống,còn trống","KHÔNG", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("空港","くうこう","sân bay","KHÔNG CẢNG", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("空気","くうき","không khí","KHÔNG KHÍ", false);
+            create_lesson_kanji(obj12);
+            
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji35(){
+            let obj = create_kanji("暑い","あつい","nóng(thời tiết)","THỬ", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("寒い","さむい","lạnh","HÀN", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("早い","はやい","sớm","TẢO", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("早退","そうたい","về sớm","TẢO THỐI", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("速い","はやい","nhanh","TỐC", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("速度","そくど","tốc độ","TỐC ĐỘ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("遅い","おそい","chậm,muộn","TRÌ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("遅れる","おくれる","trễ (giờ học, tàu,..)","TRÌ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("重い","おもい","nặng","TRỌNG", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("体重","たいじゅう","cân nặng","THỂ TRỌNG", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("軽い","かるい","nhẹ","KHNH", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("近い","ちかい","gần","CẬN", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("最近","さいきん","gần đây","TỐI CẬN", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("近所","きんじょ","vùng lân cận, hàng xóm","CẬN SỞ", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("遠い","とおい","xa","VIỄN", false);
+            create_lesson_kanji(obj15);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji36(){
+            let obj = create_kanji("質問","しつもん","câu hỏi","CHẤT VẤN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("お問い合わせ","おといあわせ","liên hê, hỏi đáp","VẤN HỢP", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("問題","もんだい","vấn đề, câu hỏi","VẤN ĐỀ", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("答える","こたえる","trả lời","ĐÁP", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("回答","かいとう","đáp án","HỒI ĐÁP", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("作る","つくる","chế tạo, làm","TÁC", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("操作","そうさ","thao tác, vận hành","THAO TÁC", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("思う","おもう","nghĩ, cho rằng","TƯ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("不思議","ふしぎ","kì lạ,bí ấn","BẤT TƯ NGHỊ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("始まる","はじまる","băt đầu","THUỶ", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("年末年始","ねんまつねんし","cuối năm cũ đầu năm mới","NIÊN MẠT NIÊN THUỶ", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("着く","つく","tới,đến nơi","TRỨ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("着物","きもの","đồ kimono","TRỨ VẬT", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("着る","きる","mặc(quần áo)","TRỨ", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("集める","あつめる","sưu tầm,gom lại","TẬP", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("集合する","しゅうごうする","tập trung","TẬP HỢP", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("集中","しゅうちゅう","tập trung","TẬP TRUNG", false);
+            create_lesson_kanji(obj17);
+            let obj18 = create_kanji("練習する","れんしゅうする","luyện tập, rèn luyện","LUYỆN TẬP", false);
+            create_lesson_kanji(obj18);
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji37(){
+            let obj = create_kanji("晴れる","はれる","nắng","TÌNH", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("星","ほし","sao","TINH", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("風","かぜ","gió","PHONG", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("台風","たいふう","bão","ĐÀI PHONG", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("全然","ぜんぜん","hoàn toàn","TOÀN NHIÊN", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("自然","しぜん","tự nhiên","TỰ NHIÊN", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("油","あぶら","dầu","DU", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("醤油","しょうゆ","nước tương","TƯƠNG DU", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("石油","せきゆ","dầu thô","THẠCH DU", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("原料","げんりょう","nguyên liệu","NGUYÊN LIỆU", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("原因","げんいん","nguyên nhân","NGUYÊN NHÂN", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("お皿","おさら","đĩa","MÃNH", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("出発する","しゅっぱつする"," xuất phát","XUÁT PHÁT", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("発明","はつめい","phát minh","PHÁT MINH", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("発見","はっけん","phát hiện","PHÁT HIỆN", false);
+            create_lesson_kanji(obj15);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji38(){
+            let obj = create_kanji("郵便局","ゆうびんきょく","bưu điện","BƯU TIỆN CỤC", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("便利","べんり","tiện lợi","TIỆN LỢI", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("不便","ふべん","bất tiện","BẤT TIỆN", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("利用する","りようする","sử dụng,lợi dụng"," LỢI DỤNG", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("不思議","ふしぎ","kì lạ, bí ấn","BẤT TƯ NGHỊ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("静か","しずか","yên tĩnh","TĨNH", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("同じ","おなじ","giống","ĐỒNG", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("同時","どうじ","đồng thời, cùng lúc","ĐỒNG THỜI", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("有る","ある","có","HỮU", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("有名","ゆうめい","nổi tiếng","HỮU DANH", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("親しい","したしい","thân thiết","THÂN", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("親切","しんせつ","tốt bụng","THÂN THIẾT", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("両親","りょうしん","bố mẹ","LƯỠNG THÂN", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("細かいお金","こまかいおかね","tiền lẻ","TẾ KIM", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("細い","ほそい","ốm,thon dài","TẾ", false);
+            create_lesson_kanji(obj15);
+            
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji39(){
+            let obj = create_kanji("駅員","えきいん","nhân viên nhà ga","DỊCH VIÊN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("駅前","えきまえ","trước ga","DỊCH TIỀN", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("店","みせ","tiệm quán","ĐIẾM", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("支店","してん","chi nhánh","CHI ĐIẾM", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("池","いけ","ao","TRÌ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("電池","でんち","pin","TRÌ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("公園","こうえん","công viên","CÔNG VIÊN", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("主人公","しゅじんこう","nhân vật chính","CHỦ NHÂN CÔNG", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("動物園","どうぶつえん","sở thú","ĐỘNG VẬT VIÊN", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("洋服","ようふく","đồ tây","DƯƠNG PHỤC", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("洋食","ようしょく","món ăn tây","DƯƠNG THỰC", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("その辺","そのへん","vùng đó,khu vực đó","BIÊN", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("交差点","こうさてん","ngã tư","GIAO SOA ĐIỂM", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("交番","こうばん","đồn cảnh sát","GIAO PHIÊN", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("西洋化する","せいようかする","Tây Âu hoá","TÂY DƯƠNG HOÁ", false);
+            create_lesson_kanji(obj15);
+            
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji40() {
+            let obj = create_kanji("漢字","かんじ","hán tự","HÁN TỰ", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("数える","かぞえる","đếm","SỐ", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("数","かず","số lượng","SỐ", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("人数","にんずう","số người","NHÂN SỐ", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("旅行社","りょこうしゃ","công ty du lịch","LỮ HÀNH XÃ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("旅","たび","chuyến du lịch","LỮ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("薬","くすり","thuốc","DƯỢC", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("薬局","やっきょく","tiệm thuốc","DƯỢC CỤC", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("台所","だいどころ","nhà bếp","ĐÀI SỞ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("台風","たいふう","bão","ĐÀI PHONG", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("万里長城","ばんりちょうじょう","vạn lý trường thành","VẠN LÝ TRƯỜNG THÀNH ", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("天才","てんさい","thiên tài","THIÊN TÀI", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("去る","さる","qua đi, rời đi","KHỨ", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("去年","きょねん","năm ngoái","KHỨ NIÊN", false);
+            create_lesson_kanji(obj14);
+            
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji41(){
+            let obj = create_kanji("若い","わかい","trẻ","NHƯỢC", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("短い","みじかい","ngắn","ĐOẢN", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("弱い","よわい","yếu","NHƯỢC", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("弱点","じゃくてん","điểm yếu","NHƯỢC ĐIỂM", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("正しい","ただしい","đúng đắn,chính xác","CHÍNH", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("正解","せいかい","đáp án đúng","CHÍNH GIẢI", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("お正月","おしょうがつ","tết Nguyên Đán","CHÍNH NGUYỆT", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("広い","ひろい","rộng","QUẢNG", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("広がる","ひろがる","lan rộng","QUẢNG", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("広告","こうこく","quảng cáo","QUẢNG CÁO", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("低い","ひくい","thấp","ĐÊ", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("最低","さいてい","thấp nhất","TỐI ĐÊ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("楽しい","たのしい","vui","LẠC/NHẠC", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("楽しむ","たのしむ","vui vẻ với gì đó","LẠC/NHẠC", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("音楽","おんがく","âm nhạc","ÂM NHẠC", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("楽","らく","dễ dàng, đơn giản,thoải mái","LAC,NHẠC", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("太い","ふとい","mập","THÁI", false);
+            create_lesson_kanji(obj17);
+            let obj18 = create_kanji("太る","太る","mập lên","THÁI", false);
+            create_lesson_kanji(obj18);
+            let obj19 = create_kanji("太陽","たいよう","mặt trời","THÁI DƯƠNG", false);
+            create_lesson_kanji(obj19);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+            }
+
+        function kanji42(){
+            let obj = create_kanji("運ぶ","はこぶ","vận chuyển, di chuyển đồ vật","VẬN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("運転手","うんてんしゅ","tài xế","TÀI XẾ", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("運動する","うんどうする","vận động(cơ thể)","VẬN ĐỘNG", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("合う","あう","phù hợp, khớp","HỢP", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("知り合い","しりあい","người quen","TRI HỢP", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("都合","つごう","sự thuận tiện, thuận lợi","ĐÔ HỢP", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("合格","ごうかく","đậu, vượt qua kì thi","HỢP CÁCH", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("当たる","あたる","trúng","ĐƯƠNG", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("お弁当","おべんとう","cơm hộp","BIỆN ĐƯƠNG", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("考える","かんがえる","suy nghĩ","KHẢO", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("参考する","さんこうする","tham khảo","THAM KHẢO", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("走る","はしる","chạy","TẨU", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("治る","なおる","khỏi(bệnh)","TRỊ", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("政治","せいじ","chính trị","CHÍNH TRỊ", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("通う","かよう","đi lại,đi đi về về","THÔNG", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("通る","とおる","băng qua, vượt qua","THÔNG", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("普通","ふつう","thông thường, bình thường","PHỔ THÔNG", false);
+            create_lesson_kanji(obj17);
+            let obj18 = create_kanji("交通","こうつう","giao thông","GIAO THÔNG", false);
+            create_lesson_kanji(obj18);
+            let obj19 = create_kanji("知る","しる","biết","TRI", false);
+            create_lesson_kanji(obj19);
+            let obj20 = create_kanji("知らせる","しらせる","thông báo,cho biết","TRI", false);
+            create_lesson_kanji(obj20);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji43(){
+            let obj = create_kanji("ご注文","ごちゅうもん","đặt hàng, đặt món","CHÚ VĂN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("文法","ぶんぽう","ngữ pháp","VĂN PHÁP", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("文化","ぶんか","văn hoá","VĂN HOÁ", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("西洋化する","せいようかする","Tây hoá","TÂY DƯƠNG HOÁ", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("化粧","けしょう","trang điểm","HOÁ TRANG", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("経済","けいざい","kinh tế","KINH TẾ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("経験","けいけん","kinh nghiệm","KINH NGHIỆM", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("政治","せいじ","chính trị","CHÍNH TRỊ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("歴史","れきし","lịch sử","LỊCH SỬ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("経歴","けいれき","quá trình, kinh nghiệm làm việc","KINH LỊCH", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("育つ","そだつ","lớn lên,khôn lớm","DỤC", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("育てる","そだてる","nuôi nấng, dạy dỗ","DỤC", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("教育","きょういく","việc giáo dục","GIÁO DỤC", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("体育館","たいいくかん"," phòng tập thể dục","THỂ DỤC QUÁN", false);
+            create_lesson_kanji(obj14);
+            
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji44(){
+            let obj = create_kanji("料理","りょうり","món ăn","LIỆU LÍ", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("無料","むりょう","miễn phí","VÔ LIỆU", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("給料","きゅうりょう","lương","CẤP LIỆU", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("無理","むり","không thể","VÔ LÍ", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("修理","しゅうり","sữa chữa","TU LÍ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("理由","りゆう","lí do","LÝ DO", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("味","あじ","vị","VỊ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("趣味","しゅみ","sở thích","THÚ VỊ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("意味","いみ","ý nghĩa","Ý VỊ", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("興味","きょうみ","hứng thú","HƯNG VỊ", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("飯","めし","cơm","PHẠN", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("昼ご飯","ひるごはん","cơm trưa","TRÚ PHẠN", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("野菜","やさい","rau","DÃ THÁI", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("野球","やきゅう","bóng chày","DÃ CẦU", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("お酒","おさけ","rượu","TỬU", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("日本酒","にほんしゅ","rượu Nhật","Nhật Bản Tủu", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("品物","しなもの","hàng hoá","PHẨM VẬT", false);
+            create_lesson_kanji(obj17);
+            let obj18 = create_kanji("製品","せいひん","sản phẩm","CHẾ PHẨM", false);
+            create_lesson_kanji(obj18);
+            let obj19 = create_kanji("麦","むぎ","lúa mạch","MẠCH", false);
+            create_lesson_kanji(obj19);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji45(){
+            let obj = create_kanji("船","ふね","chiếc thuyền","THUYỀN", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("船便","ふなびん","gửi bằng đường biển","THUYỀN TIỆN", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("船長","せんちょう","thuyền trưởng","THUYỀN TRƯỞNG", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("地下","ちか","tầng hầm","ĐỊA HẠ", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("地下鉄","ちかてつ","tàu điện ngầm","ĐỊA HẠ THIẾT", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("地図","ちず","bản đồ","ĐỊA ĐỒ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("地震","じしん","động đất","ĐỊA CHẤN", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("特別","とくべつ","đặc biệt","ĐẶC BIỆT", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("特急","とっきゅう","tàu tốc hành đăc biệt","ĐĂC CẤP", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("特に","とくに","đặc biệt","ĐẶC", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("お客様","おきゃくさま","khách hàng","KHÁCH DẠNG", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("様子","ようす","trạng thái, vẻ bề ngoài","DẠNG TỬ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("荷物","にもつ","hành lý, đồ đạc","HÀ VẬT", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("馬","うま","ngựa","MÃ", false);
+            create_lesson_kanji(obj14);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji46(){
+            let obj = create_kanji("","","","", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("","","","", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("","","","", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("何番","なんばん","số bao nhiêu","HÀ PHIÊN", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("順番","じゅんばん","thứ tự","THUẬN PHIÊN", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("番組","ばんぐみ","chương trình tivi,kênh","PHIÊN TỔ", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("暗証番号","あんしょうばんごう","mã số bí mật","ÁM CHỨNG PHIÊN HIỆU", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("信号","しんごう","đèn tín hiệu","TÍN HIỆU", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("写真","しゃしん","hình ảnh","TẢ CHÂN", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("真ん中","まんなか","chính giữa","CHÂN TRUNG", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("真っ白","まっしろ","trắng xoá","CHÂN BẠCH", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("時計","とけい","đồng hồ","THỜI KẾ", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("体温計","たいおんけい","nhiệt kế","THỂ ÔN KẾ", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("お宅","おたく","nhà(kính ngữ của いえ","TRẠCH", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("お年玉","おとしだま","tiền lì xì","NIÊN NGỌC", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("10円玉","じゅうえんだま","đồng 10 yên","VIÊN NGỌC", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("工場","こうじょう","công trường","CÔNG TRƯỜNG", false);
+            create_lesson_kanji(obj17);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji47(){
+            let obj = create_kanji("白い","しろい","trắng","BẠCH", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("黒い","くろい","đen","HẮC", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("赤い","あかい","đỏ","XÍCH", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("青い","あおい","xanh(da trời)","THANH", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("緑","みどり","xanh(lá cây)","LỤC", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("黄色","きいろ","vàng","HOÀNG SẮC", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("色","いろ","màu sắc","SẮC", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("景色","けしき","phong cảnh","CẢNH SẮC", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("丸い","まるい","tròn","HOÀN", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("","","","", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("","","","", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("","","","", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("","","","", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("","","","", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("","","","", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("","","","", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("","","","", false);
+            create_lesson_kanji(obj17);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji48(){
+            let obj = create_kanji("心","こころ","trái tim, tâm hồn","TÂM", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("心配","しんぱい","lo lắng","TÂM PHỐI", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("熱心","ねっしん","nhiệt tình,hết mình","NHIỆT TÂM", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("安心","あんしん","an tâm","AN TÂM", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("自ら","みずから","tự bản thân mình","TỰ", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("自転車","じてんしゃ","xe đạp","TỰ ĐỘNG XA", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("自動販売機","じどうはんばいき","máy bán hàng tự động","TỰ ĐỘNG PHIẾN MẠI CƠ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("声","こえ","âm thanh","THANH", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("洋服","ようふく","đồ Tây","DƯƠNG PHỤC", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("毛","け","lông","MAO", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("毛糸","けいと","sợi tơ","MAO MỊCH", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("糸","いと","sợi tơ","MỊCH", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("科学","かがく","khoa học","KHOA HỌC", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("鳴る","なる","gáy,hót,reo","MINH", false);
+            create_lesson_kanji(obj14);
+        
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji49(){
+            let obj = create_kanji("道","みち","đường,con đường","ĐẠO", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("道具","どうぐ","đồ nghề, dụng cụ","ĐẠO CỤ", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("水道","すいどう","nước máy","THUỶ ĐẠO", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("村","むら","thôn,làng","THÔN", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("区","く","quận","KHU", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("市場","いちば","chợ","THỊ TRƯỜNG", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("市役所","しやくしょ","văn phòng hành chính quận,thành phố","THỊ DỊCH SỞ", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("都合","つごう","sự thuận tiên, hoàn cảnh","ĐÔ HỢP", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("都会","とかい","thành phố","ĐÔ HỘI", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("県","けん","tỉnh","HUYỆN", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("府","ふ","thành phố(lớn hơn 県)","PHỦ", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("東京","とうきょう","thành phó tokyo","ĐÔNG KINH", false);
+            create_lesson_kanji(obj12);
+            
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanji50(){
+            let obj = create_kanji("衣服","いふく","trang phục, y phục","Y PHỤC", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("光","ひかり","ánh sáng","QUANG", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("日光","にっこう","ánh sáng mặt trời","NHẬT QUANG", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("観光地","かんこうち","nơi tham quan du lịch","QUAN QUANG ĐỊA", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("雲","くも","mây","VÂN", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("国王","こくおう","quốc vương, vua","QUỐC VƯƠNG", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("草","くさ","cỏ","THẢO", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("湖","みずうみ","hồ","HỒ", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("谷","たに","khe núi, thung lủng","CỐC", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("虫","むし","côn trùng, sâu bọ","TRÙNG", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("羽","はね","cánh","VŨ", false);
+            create_lesson_kanji(obj11);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+        }
+
+        function kanjitempale(){
+            let obj = create_kanji("","","","", false);
+            create_lesson_kanji(obj);
+            let obj2 = create_kanji("","","","", false);
+            create_lesson_kanji(obj2);
+            let obj3= create_kanji("","","","", false);
+            create_lesson_kanji(obj3);
+            let obj4 = create_kanji("","","","", false);
+            create_lesson_kanji(obj4);
+            let obj5 = create_kanji("","","","", false);
+            create_lesson_kanji(obj5);
+            let obj6 = create_kanji("","","","", false);
+            create_lesson_kanji(obj6);
+            let obj7 = create_kanji("","","","", false);
+            create_lesson_kanji(obj7);
+            let obj8 = create_kanji("","","","", false);
+            create_lesson_kanji(obj8);
+            let obj9 = create_kanji("","","","", false);
+            create_lesson_kanji(obj9);
+            let obj10 = create_kanji("","","","", false);
+            create_lesson_kanji(obj10);
+            let obj11 = create_kanji("","","","", false);
+            create_lesson_kanji(obj11);
+            let obj12 = create_kanji("","","","", false);
+            create_lesson_kanji(obj12);
+            let obj13 = create_kanji("","","","", false);
+            create_lesson_kanji(obj13);
+            let obj14 = create_kanji("","","","", false);
+            create_lesson_kanji(obj14);
+            let obj15 = create_kanji("","","","", false);
+            create_lesson_kanji(obj15);
+            let obj16= create_kanji("","","","", false);
+            create_lesson_kanji(obj16);
+            let obj17 = create_kanji("","","","", false);
+            create_lesson_kanji(obj17);
+
+            create_list_kanji(kanji_lesson);
+
+            kanji_lesson = [];
+
+        }
+        function create_kanji(kanji,hiragana,imi,beto,isRemembered){
+            let obj = {
+                kanji: kanji,
+                hiragana: hiragana,
+                imi:imi,
+                beto: beto,
+                isRemembered: isRemembered
+            }
+            return obj;
+        }
+        function create_lesson_kanji(obj){
+            kanji_lesson.push(obj);
+        }
+        function create_list_kanji(arr){
+            let crrArr = [...arr];
+            list_kanji.push(crrArr);
+        }
+
+        //thêm từ vựng
+        function initVoca(){
+            voca26();
+            voca27();
+            voca28();
+            voca29();
+            voca30();
+            voca31();
+            voca32();
+            voca33();
+            voca34();
+            voca35();
+            voca36();
+            voca37();
+            voca38();
+            voca39();
+            voca40();
+            voca41();
+            voca42();
+            voca43();
+            voca44();
+            voca45();
+            voca46();
+            voca47();
+            voca48();
+            voca49();
+            voca50();
+        }
+
+        function voca26(){
+            let obj = create_kanji("見る、診る","みる","nhìn, xem/ khám bệnh","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("探す","さがす","tìm kiếm","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("時間に遅れる","じかんにおくれる","chậm, trễ [giờ]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("時間に間に合う","じかんにまにあう","kịp [giờ]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("やる","","làm","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("拾う","ひろう","nhặt","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("ごみを出す","ごみをだす","đổ (rác)","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("レポートを出す","レポートをだす","nộp (báo cáo)","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("連絡する","れんらくする","liên lạc","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("気分がいい","きぶんがいい","きぶんがいい","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("気分が悪い","気分が悪い","cảm thấy không thoải mái,cảm thấy mệt","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("運動会","うんどうかい","hội thi thể thao","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("盆踊り","ぼんおどり","múa Bon","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("場所","ばしょ","địa điểm, nơi","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("置き場","おきば","nơi để","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("さいふ","財布","ví","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("ごみ","","rác","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("急行","きゅうこう","tàu tốc hành","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("特急","とっきゅう","tàu tốc hành đặc biệt","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("自動車","じどうしゃ","xe ô tô","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("国会議事堂","こっかいぎじどう","tòa nhà quốc hội","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("ボランティア","","tình nguyện viên","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("フリーマーケット","","chợ trời (chợ đồ cũ)","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("平日","へいじつ","ngày thường","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("今度","こんど","lần tới","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("ずいぶん","","khá, tương đối","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("直接","ちょくせつ","trực tiếp","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("いつでも","","lúc nào cũng","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("どこでも","","ở đâu cũng","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("だれでも","","ai cũng","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("なんでも","","cái gì cũng","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("こんな~","","như thế này ~","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("そんな~","","như thế đó ~","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("あんな~","","như thế kia ~","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("詳しい","くわしい","Tường tận, cụ thể","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("痩せる","やせる","Gầy đi","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("寝坊する","ねぼうする","Ngủ quên","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("ごみを出す","ごみをだす","Vứt rác","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("宇宙","うちゅう","Vũ trụ","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("宇宙船","うちゅうせん","Tàu vũ trụ","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("うちゅうステーション","","Trạm vụ trụ","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("地球","ちきゅう","Trái đất","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("宇宙飛行士","うちゅうひこうし","Phi hành gia","", false);
+            create_lesson_voca(obj43);
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca27(){
+            let obj = create_kanji("飼う","かう","nuôi (động vật)h","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("道を走る","みちをはしる","chạy [trên đường]","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("山が見える","やまがみえる","nhìn thấy [núi]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("音が聞こえる","おとがきこえる","nghe thấy [âm thanh]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("道が出来る","みちができる","[con đường~]được làm, được hoàn thành","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("教室を開く","きょうしつをひらく","mở, tổ chức [lớp học]","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("建てる","たてる","xây dựng","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("心配[な]","しんぱい[な]","lo lắng","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("ペット","","thú cưng, động vật nuôi","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("鳥","とり","chim","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("声","こえ","giọng nói, tiếng (người)","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("波","なみ","sóng","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("花火","はなび","pháo hoa","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("道具","どうぐ","dụng cụ","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("家具","かぐ","đồ gỗ trong nhà","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("家賃","やちん","tiền nhà","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("通信販売","つうしんはんばい","mua hàng qua mạng","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("空","そら","bầu trời","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("クリーニング","","giặt là","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("神社","じんじゃ","đền thờ thần đạo","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("マンション","","chung cư","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("キッチン","","bếp","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("方","かた","vị, ngài","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("ほかの","","khác","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("はっきり","","rõ ràng","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("ほとんど","","hầu hết, hầu như","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("いつか","","một lúc nào đó","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("例えば","たとえば","ví dụ","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("昔","むかし","ngày xưa","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("昼間","ひるま","thời gian ban ngày","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("漫画","まんが","truyện tranh","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("大好き","だいすき","rất thích","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("主人公","主人公","nhân vật chính","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("自由に","じゆうに","tự do, tùy thích","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("動画","どうが","Video","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("不思議[な]","ふしぎ[な]","Kỳ lạ","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("空を飛びます","そらをとびます","Bay trên bầu trời","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("鳴き声","なきごえ","Tiếng kêu (động vật)","", false);
+            create_lesson_voca(obj38);
+            
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+        
+        function voca28(){
+            // let obj = create_kanji("見る、診る","みる","nhìn, xem/ khám bệnh","", false);
+            // create_lesson_voca(obj);
+            let obj = create_kanji("パンが売れる","パンがうれる","[bánh mì~]bán chạy","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("踊る","おどる","nhảy múa","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("噛む","かむ","nhai, cắn","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("選ぶ","えらぶ","lựa, lựa chọn","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("大学に通う","だいがくにかよう","","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("メモする","","ghi lại","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("真面目[な]","まじめ[な]","nghiêm túc, ngoan","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("熱心[な]","ねっしん[な]","nhiệt tình","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("えらい","偉い","siêu, giỏi","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("ちょうどいい","","vừa vặn","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("景色","けしき","phong cảnh","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("美容院","びよういん","hiệu làm đẹp","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("台所","だいどころ","nhà bếp","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("経験","けいけん","kinh nghiệm","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("力","ちから","sức mạnh","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("人気","にんき","được yêu thích","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("形","かたち","hình dạng","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("色","いろ","màu sắc","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("味","あじ","vị","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("ガム","","kẹo cao su","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("品物","しなもの","hàng hóa","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("値段","ねだん","giá cả","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("給料","きゅうりょう","lương","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("ボーナス","","thưởng","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("ゲーム","","trò chơi, game","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("番組","ばんぐみ","chương trình truyền hình","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("歌手","かしゅ","ca sĩ","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("ドラマ","","phim truyền hình","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("小説","しょうせつ","tiểu thuyết","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("小説家","しょうせつか","tiểu thuyết gia, nhà văn","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("息子","むすこ","con trai mình","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("息子さん","息子さん","con trai người khác","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("娘","むすめ","con gái mình","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("娘さん","むすめさん","con gái người khác","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("自分","じぶん","mình","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("しばらく","","một lúc","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("たいてい","","thường thì","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("それに","","hơn nữa","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("それで","","vì thế","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("実は","じつは","thực ra","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("会話","かいわ","hội thoại","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("体育館","たいいくかん","nhà thi đấu thể thao","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("無料","むりょう","miễn phí","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("イベント","","sự kiện","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("お知らせ","おしらせ","thông báo","", false);
+            create_lesson_voca(obj45);
+            let obj46 = create_kanji("革","かわ","Da (chất liệu da)","", false);
+            create_lesson_voca(obj46);
+            let obj47 = create_kanji("安全","あんぜん","An toàn","", false);
+            create_lesson_voca(obj47);
+            let obj48 = create_kanji("まずい","","Dở","", false);
+            create_lesson_voca(obj48);
+            let obj49 = create_kanji("面倒くさい","めんどくさい","Phiền phức","", false);
+            create_lesson_voca(obj49);
+            let obj50 = create_kanji("Phiền phức","つきあう","Hẹn hò","", false);
+            create_lesson_voca(obj50);
+            let obj51 = create_kanji("誘います","さそいます","Mời, rủ","", false);
+            create_lesson_voca(obj51);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca29(){
+            // let obj = create_kanji("見る、診る","みる","nhìn, xem/ khám bệnh","", false);
+            // create_lesson_voca(obj);
+            let obj = create_kanji("ドアが開く","ドアがあく","[cửa~] mở","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("ドアが閉まる","ドアがしまる","[cửa~] đóng","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("電気がつく","でんきがつく","[đèn~] sáng","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("電気が消える","でんきがきえる","[đèn~] tắt","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("椅子が壊れる","いすがこわれる","[ghế ~] hỏng","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("コップが割れる","コップがわれる","[cốc ~] vỡ","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("木が折れる","きがおれる","[cây ~] gãy","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("紙が破れる","かみがやぶれる","[giấy ~] rách","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("服が汚れる","ふくがよごれる","[quần áo ~] bẩn","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("ポケットが付く","ポケットがつく","[túi ~] dính, đính","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("ボタンが外れる","ボタンがはずれる","[nút ~] bung, rời","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("車が止まる","くるまがとまる","[xe ~] dừng","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("間違える","まちがえる","nhầm","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("落とす","おとす","đánh rơi","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("鍵が掛かる","かぎがかかる","[khóa ~] đóng","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("拭く","ふく","lau, chùi","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("電池を取り替える","でんちをとりかえる","thay (pin)","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("片付ける","かたづける","dọn dẹp","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("皿","さら","đĩa","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("ちゃわん","","bát","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("コップ","","cốc","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("ガラス","","thủy tinh","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("袋","ふくろ","túi đựng","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("書類","しょるい","giấy tờ","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("枝","えだ","cành cây","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("駅員","えきいん","nhân viên nhà ga","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("交番","こうばん","đồn cảnh sát, bốt cảnh sát","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("スピーチ[をします]","","diễn văn","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("返事[をします]","へんじ[をします]","trả lời","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("お先にどうぞ","おさきにどうぞ","おさきにどうぞ","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("忘れ物","わすれもの","đồ bỏ quên","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("ポケット","","túi (quần, áo)","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("網棚","あみだな","giá để hành lý","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("地震","じしん","động đất","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("針","はり","kim đồng hồ","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("乗り場","のりば","điểm lên xe","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("駅前","えきまえ","trước nhà ga","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("レポーター","","phóng viên","", false);
+            create_lesson_voca(obj38);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca30(){
+            let obj = create_kanji("貼る","はる","dán","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("掛ける","かける","treo","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("飾る","かざる","trang trí","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("並べる","ならべる","sắp xếp","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("植える","うえる","trồng","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("戻す","もどす","もどす","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("まとめる","","tóm tắt, tổng hợp/thu dọn (hành lý)","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("しまう","","cất","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("決める","きめる","quyết định","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("[目が~]覚める","[めが~]さめる","thức dậy, tỉnh giấc","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("予習する","よしゅうする","chuẩn bị bài","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("復習する","ふくしゅうする","ôn tập","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("そのままにする","","để nguyên như thế","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("授業","じゅぎょう","giờ học","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("講義","こうぎ","bài giảng","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("予定","よてい","dự định, kế hoạch","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("お知らせ","おしらせ","thông báo","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("予定表","よていひょう","lịch làm việc","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("ゴミ箱","ごみばこ","thùng rác","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("人形","にんぎょう","búp bê","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("花瓶","かびん","bình hoa","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("鏡","かがみ","gương","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("引き出し","ひきだし","ngăn kéo","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("玄関","げんかん","lối vào nhà","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("廊下","ろうか","hành lang","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("壁","かべ","tường","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("元の所","もとのところ","chỗ cũ","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("周り","まわり","xung quanh","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("真ん中","まんなか","chính giữa","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("隅","すみ","góc","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("まだ","","vẫn","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("非常袋","ひじょうぶくろ","túi khẩn cấp","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("非常時","ひじょうじ","trường hợp khẩn cấp","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("うれしい","","vui","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("ミーティング","","cuộc họp","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("ガイドブック","","sách hướng dẫn du lịch","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("カレンダー","","lịch","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("ポスター","","poster","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("リュック","","ba lô","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("夢を見る","ゆめをみる","ngủ mơ","", false);
+            create_lesson_voca(obj40);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca31(){
+            let obj = create_kanji("見つける","みつける","tìm thấy","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("続ける","つづける","tiếp tục","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[休みを~]取る","[やすみを~]とる","xin [nghỉ]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[試験を~]受ける","[しけんを~]うける","dự [thi]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("申し込む","もうしこむ","đăng ký","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("休憩する","きゅうけいする","nghỉ giải lao","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("連休","れんきゅう","ngày nghỉ liên tục","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("残る","のこる","sót lại, thừa lại, ở lại","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("卒業する","そつぎょうする","tốt nghiệp","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("[目を~]閉じる","[めを~]とじる","nhắm mắt","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("作文","さくぶん","bài tập làm văn","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("発表","はっぴょう","phát biểu, công bố","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("展覧会","てんらんかい","cuộc triển lãm","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("結婚式","けっこんしき","lễ cưới","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("葬式","そうしき","đám tang","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("式","しき","lễ","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("本社","ほんしゃ","trụ sở chính","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("支店","してん","cửa hàng chi nhánh","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("教会","きょうかい","nhà thờ","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("和室","わしつ","phòng kiểu Nhật","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("大学院","だいがくいん","cao học","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("動物園","どうぶつえん","sở thú","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("温泉","おんせん","suối nước nóng","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("帰り","かえり","sự trở về","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("お子さん","お子さん","con (con của người khác)","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("ずっと","","suốt","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("入学試験","にゅうがくしけん","kì thi đầu vào","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("空","そら","bầu trời","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("都会","とかい","thành phố lớn","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("記念日","きねんび","Ngày kỉ niệm","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("プロポーズ","","プロポーズ","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("乾杯","かんぱい","Cạn ly","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("過ぎます","すぎます","Quá","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("村","むら","Làng","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("田舎","田舎","Nông thôn","", false);
+            create_lesson_voca(obj35);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca32(){
+            let obj = create_kanji("運動する","うんどうする","vận động","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("成功する","せいこうする","thành công","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[試験に~]失敗する","[しけんに~]しっぱいする","thất bại, trượt [kì thi]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[試験に~]合格する","[しけんに~]ごうかくする","đỗ [kì thi]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[雨が~]やむ","[あめが~]やむ","tạnh [mưa]","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("晴れる","はれる","quang đãng, nắng đẹp","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("曇る","くもる","có mây","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[熱が~]続く","[ねつが~]つづく","[sốt] kéo dài","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("[風邪を~]引く","[かぜを~]ひく","bị cảm","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("冷やす","ひやす","làm mát, làm lạnh","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("[道が~]込む","[みちが~]こむ","[đường] đông","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("[道が~]空く","[みちが~]すく","[đường] vắng","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("[宝くじが~]当たる","[たからくじが~]あたる","trúng [xổ số]","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("[試合に~]出る","[しあいに~]でる","tham gia [trận đấu]","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("無理をする","むりをする","gắng sức","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("働き過ぎ","はたらきすぎ","làm việc quá sức","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("十分","じゅうぶん","đủ","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("おかしい","","lạ, thú vị","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("うるさい","","ồn ào","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("先生","せんせい","bác sĩ","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("火傷[をします]","やけど[をします]","[bị] bỏng","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("怪我[をします]","けが[をします]","[bị] thương","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("咳[をします]","せき[をします]","ho","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("太陽","たいよう","mặt trời","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("石","いし","hòn đá","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("星","ほし","sao","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("風","かぜ","gió","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("東","ひがし","đông","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("西","にし","tây","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("南","みなみ","nam","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("北","きた","bắc","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("国際","こくさい","quốc tế","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("水道","すいどう","nước máy","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("エンジン","","động cơ","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("チーム","","đội","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("夕方","ゆうがた","chiều tối","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("昨夜","ゆうべ","tối hôm trước","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("遅く","おそく","muộn","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("こんなに","","như thế này","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("そんなに","","như thế đó","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("あんなに","","như thế kia","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("元気","げんき","khỏe","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("胃","い","dạ dày","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("ストレス","","căng thẳng","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("星占い","ほしうらない","chiêm tinh, bói sao","", false);
+            create_lesson_voca(obj45);
+            let obj46 = create_kanji("痩せる","やせる","Gầy đi","", false);
+            create_lesson_voca(obj46);
+            let obj47 = create_kanji("体調","たいちょう","Tình trạng cơ thể","", false);
+            create_lesson_voca(obj47);
+            let obj48 = create_kanji("渋滞","じゅうたい","Tắc đường","", false);
+            create_lesson_voca(obj48);
+            let obj49 = create_kanji("牡牛座","おうしざ","Sao kim ngưu","", false);
+            create_lesson_voca(obj49);
+            let obj50 = create_kanji("健康","けんこう","Sức khỏe","", false);
+            create_lesson_voca(obj50);
+            let obj51 = create_kanji("恋愛","れんあい","Tình yêu","", false);
+            create_lesson_voca(obj51);
+            let obj52 = create_kanji("ラッキーアイテム","","Vật mang lại may mắn","", false);
+            create_lesson_voca(obj52);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca33(){
+            let obj = create_kanji("逃げる","にげる","chạy trốn","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("騒ぐ","さわぐ","làm ồn","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("諦める","あきらめる","bỏ cuộc, từ bỏ","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("投げる","なげる","ném","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("守る","まもる","giữ (lời hứa), tuân thủ","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("[式が~]始まる","[しきが~]はじまる","[lễ~] bắt đầu","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[会議に~]出席する","[かいぎに~]しゅっせきする","có mặt, tham dự [cuộc họp]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[会議に~]欠席する","[かいぎに~]けっせきする","vắng mặt, không tham dự [cuộc họp]","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("伝える","つたえる","nói lại, truyền đạt lại","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("[車に~]注意する","[くるまに~]ちゅういする","chú ý [xe ô tô]","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("[席を~]外す","[せきを~]はずす","rời [ghế]","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("戻る","もどる","quay trở lại","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("[でんわが~]ある","","có [điện thoại]","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("リサイクルする","","tái chế","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("助け合う","たすけあう","giúp đỡ lẫn nhau","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("だめ","","không được","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("警察","けいさつ","cảnh sát","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("席","せき","ghế, chỗ [ngồi]","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("マーク","","kí hiệu","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("ボール","","quả bóng","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("締め切り","しめきり","hạn chót, hạn cuối","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("規則","きそく","quy tắc","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("危険","きけん","nguy hiểm","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("使用禁止","しようきんし","cấm sử dụng","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("立入禁止","たちいりきんし","cấm vào","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("徐行","じょこう","chạy chậm, đi chậm","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("入口","いりぐち","lối vào","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("出口","でぐち","lối ra","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("非常口","ひじょうぐち","cửa thoát hiểm","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("割引","わりびき","giảm giá","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("食べ放題","たべほうだい","ăn thoải mái","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("飲み放題","のみほうだい","uống thoải mái","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("使用中","しようちゅう","đang sử dụng","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("募集中","ぼしゅうちゅう","đang tuyển","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("どういう","","như thế nào","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("もう","","nữa","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("罰金","ばっきん","tiền phạt","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("駐車違反","ちゅうしゃいはん","đỗ xe sai quy định","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("相手","あいて","đối phương, đối thủ","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("気持ち","きもち","tâm trạng","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("ミーティング","","Cuộc họp","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("ごにょごにょ","","Lẩm bẩm","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("喋る","しゃべる","Nói chuyện, tán gẫu","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("うとうとする","","Mơ màng","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("こら","","Này!","", false);
+            create_lesson_voca(obj45);
+            let obj46 = create_kanji("一期一会","いちごいちえ","Một cơ hội trong cả cuộc đời","", false);
+            create_lesson_voca(obj46);
+            let obj47 = create_kanji("頑張る","がんばる","Cố gắng","", false);
+            create_lesson_voca(obj47);
+            let obj48 = create_kanji("地震","じしん","Động đất","", false);
+            create_lesson_voca(obj48);
+            let obj49 = create_kanji("悲しい","かなしい","Buồn","", false);
+            create_lesson_voca(obj49);
+            let obj50 = create_kanji("挨拶","あいさつ","Chào hỏi","", false);
+            create_lesson_voca(obj50);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca34(){
+            let obj = create_kanji("組み立てる","くみたてる","lắp ráp","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("折る","おる","gập, bẻ","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[忘れ物に~]気がつく","[わすれものに~]きがつく","để ý đến, chú ý đến [đồ để quên]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[醤油を~]つける","[しょうゆを~][しょうゆを~]","chấm [xì dầu]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[鍵が~]見つかる","[かぎが~]みつかる","tìm thấy [chìa khóa]","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("質問する","しつもんする","hỏi","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[傘を~]さす","[かさを~]さす","che [ô]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[歯を~]磨く","[はを~]みがく","đánh [răng]","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("説明書","せつめいしょ","sách hướng dẫn","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("図","ず","hình vẽ minh họa","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("線","せん","đường kẻ","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("矢印","やじるし","mũi tên","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("黒","くろ","màu đen","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("白","しろ","màu trắng","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("赤","あか","màu đỏ","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("青","あお","màu xanh","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("紺","こん","màu xanh sẫm","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("黄色","きいろ","màu vàng","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("茶色","ちゃいろ","ちゃいろ","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("醤油","しょうゆ","xì dầu","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("ゆうべ","","tối qua","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("さっき","","lúc nãy","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("材料","ざいりょう","nguyên liệu","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("いかがですか","","như thế nào ạ?","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("[お]城","[お]しろ","lâu đài","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("天才","てんさい","thiên tài","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("お客さん","おきゃくさん","khách hàng","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("実家","じっか","Quê","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("計画","けいかく","Kế hoạch","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("発音","はつおん","Phát âm","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("ラインコート","","Áo mưa","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("マフラー","","Khăn quàng cổ","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("~様","~さま","(là cách nói lịch sự của ~さん)","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("鶏肉","とりにく","Thịt gà","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("玉ねぎ","たまねぎ","Hành tây","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("調味料","ちょうみりょう","Gia vị","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("適当な","てきとうな","Thích hợp","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("火にかける","ひにかける","Bắc lên bếp","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("煮ます","にます","Nấu, ninh","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("火を消します","ひをけします","Tắt lửa","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("丼","どんぶり","Bát tô","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("載せます","のせます","Chất lên, đặt lên","", false);
+            create_lesson_voca(obj42);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca35(){
+            let obj = create_kanji("[色が~]変わる","[いろが~]かわる","đổi, thay đổi [màu sắc]","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("困る","こまる","khó khăn","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[丸を~]付ける","[まるを~]つける","đánh dấu [tròn]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[病気が~]治る","[びょうきが~]なおる","khỏi [bệnh]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[故障が~]直る","[こしょうが~]なおる","[hỏng hóc] được sửa xong","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("入力する","にゅうりょくする","nhập vào","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[彼女と~]仲良くする","[かのじょと~]なかよくする","chơi thân với [cô ấy]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("クリックする","","click chuột","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("[花が~]咲く","[はなが~]さく","[hoa] nở","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("向こう","むこう","","đằng ấy, phía đối diện", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("島","しま","đảo","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("港","みなと","cảng","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("近所","きんじょ","hàng xóm, gần quanh đây","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("屋上","おくじょう","tầng thượng","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("海外","かいがい","nước ngoài","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("山登り","やまのぼり","leo núi","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("歴史","れきし","lịch sử","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("機会","きかい","cơ hội","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("許可","きょか","sự cho phép","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("丸","まる","dấu tròn","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("ふりがな","","chữ furigana","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("chữ furigana","せつび","thiết bị","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("紐","ひも","sợi dây","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("炊飯器","すいはんき","nồi cơm điện","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("葉","は","lá","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("昔","むかし","ngày xưa","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("レバー","","cần, cần gạt","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("カーテン","","rèm cửa","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("夜行バス","やこうバス","xe buýt đêm","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("旅行社","りょこうしゃ","công ty du lịch","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("スキー場","スキーじょう","sân trượt tuyết","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("詳しい","くわしい","cụ thể, chi tiết","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("正しい","ただしい","đúng, chính xác","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("ことわざ","","thành ngữ","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("必要","ひつよう","cần thiết","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("おかゆ","","Cháo","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("関係","かんけい","かんけい","", false);
+            create_lesson_voca(obj37);
+            
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca36(){
+            let obj = create_kanji("貯金する","ちょきんする","tiết kiệm tiền","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("[7時を~]過ぎる","[7じを~]すぎる","quá [7 giờ]","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[仕事に~]慣れる","[しごとに~]なれる","quen với [công việc]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[食べ物が~]腐る","[たべものが~]くさる","[đồ ăn] bị thối, bị hỏng","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[事故に]遭う","[じこに]あう","gặp [tai nạn]","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("柔道","じゅうどう","judo","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("ラッシュ","","giờ cao điểm","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("宇宙","うちゅう","vũ trụ","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("曲","きょく","ca khúc, bản nhạc","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("世紀","せいき","thế kỉ","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("このごろ","","dạo này","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("遠く","とおく","xa","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("やっと","","cuối cùng thì","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("かなり","","khá là ~","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("必ず","かならず","nhất định","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("絶対に","ぜったいに","tuyệt đối","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("上手に","じょうずに","giỏi","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("出来るだけ","できるだけ","trong khả năng có thể","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("お客様","おきゃくさま","quý khách","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("特別","とくべつ","đặc biệt","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("水泳","すいえい","bơi lội","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("珍しい","めずらしい","hiếm","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("乗り物","のりもの","phương tiện đi lại","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("剣道","けんどう","kiếm đạo","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("お弁当","おべんとう","cơm hộp","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("うがいをする","","Súc miệng","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("ヨーロッパ","","Châu Âu","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("汽車","きしゃ","Tàu hỏa chạy bằng hơi nước","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("汽船","きせん","Tàu thủy chạy bằng hơi nước","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("大勢の人","おおぜいのひと","Nhiều người","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("運べる","はこべる","Vận chuyển","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("利用","りよう","Sử dụng","", false);
+            create_lesson_voca(obj32);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca37(){
+            let obj = create_kanji("褒める","ほめる","khen","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("叱る","しかる","mắng","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("誘う","さそう","mời, rủ","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("招待する","しょうたいする","mời","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("頼む","たのむ","nhờ","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("注意する","ちゅういする","nhắc nhở","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("盗る","とる","lấy cắp","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("踏む","ふむ","dẫm lên","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("壊す","こわす","làm hỏng","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("汚す","よごす","làm bẩn","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("行う","おこなう","tổ chức, tiến hành","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("輸出する","ゆしゅつする","xuất khẩu","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("輸入する","ゆにゅうする","nhập khẩu","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("翻訳する","ほんやくする","biên dịch","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("発明する","はつめいする","phát minh","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("発見する","はっけんする","phát hiện","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("殺す","ころす","giết","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("撃つ","うつ","bắn (súng, tên)","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("刺す","さす","đâm","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("撥ねる","はねる","đâm phải, va chạm","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("誘拐する","ゆうかいする","bắt cóc","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("bắt cóc","ばくはつする","nổ","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("騙す","だます","lừa dối, lừa lọc","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("米","こめ","gạo","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("麦","むぎ","lúa mạch","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("石油","せきゆ","dầu mỏ","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("原料","げんりょう","nguyên liệu thô","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("泥棒","どろぼう","kẻ trộm","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("警官","けいかん","cảnh sát","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("世界中","せかいじゅう","trên toàn thế giới","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("誰か","だれか","ai đó","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("良かったですね","よかったですね","hay quá nhỉ!","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("インスタントラーメン","","mỳ ăn liền, mỳ gói","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("デート","","hẹn hò","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("皆様","みなさま","quý vị","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("金色","きんいろ","màu vàng kim","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("毛糸","けいと","Sợi len","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("一生懸命","いっしょうけんめい","Chăm chỉ, gắng hết sức","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("掘る","ほる","đào","", false);
+            create_lesson_voca(obj39);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca38(){
+            let obj = create_kanji("[パーティーに~]参加する","[パーティーに~]さんかする","tham gia [bữa tiệc]","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("育てる","そだてる","chăm sóc, nuôi dưỡng","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("運ぶ","はこぶ","vận chuyển","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("入院する","にゅういんする","nhập viện","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("退院する","たいいんする","xuất viện","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("整理する","せいりする","chỉnh sửa, sắp xếp","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[電源を~]入れる","[でんげんを~]いれる","bật [nguồn điện]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[電源を~]切る","[でんげんを~]きる","tắt [nguồn điện]","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("[鍵を~]掛ける","[かぎを~]かける","khóa [ổ khóa]","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("[うそを~]つく","","nói dối","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("気持ちがいい","きもちがいい","tâm trạng sảng khoái,cảm thấy dễ chịu","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("気持ちが悪い","きもちがわるい","tâm trạng không tốt, cảm thấy khó chịu","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("赤ちゃん","あかちゃん","em bé","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("小学生","しょうがくせい","học sinh tiểu học","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("中学生","ちゅうがくせい","học sinh cấp 2","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("高校生","こうこうせい","học sinh cấp 3","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("小学校","しょうがっこう","trường tiểu học","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("中学校","ちゅうがっこう","trường cấp hai","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("海岸","かいがん","bờ biển","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("工場","こうじょう","nhà máy","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("村","むら","làng","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("指輪","ゆびわ","nhẫn","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("電源","でんげん","nguồn điện","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("習慣","しゅうかん","thói quen","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("健康","けんこう","sức khỏe","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("一昨年","おととし","năm kia","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("大きな~","おおきな~","~ lớn, ~ to","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("小さな~","ちいさな~","~ bé, ~ nhỏ","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("いけない","","không được rồi","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("お先に","おさきに","tôi xin phép về trước","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("研究室","けんきゅうしつ","phòng nghiên cứu","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("きちんと","","ngay ngắn","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("方法","ほうほう","phương pháp","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("双子","ふたご","sinh đôi","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("姉妹","しまい","chị em","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("性格","せいかく","tính cách","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("気が強い","きがつよい","tính cách mạnh mẽ","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("不思議[な]","ふしぎ[な]","kỳ lạ","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("年齢","ねんれい","ねんれい","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("仕方","しかた","cách làm","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("バレンタインデー","","Ngày lễ tình yêu (Ngày Valentine)","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("オリンピック","","Olympic","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("得意","とくい","Giỏi, mạnh","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("似てる","にてる","Giống nhau","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("性格","せいかく","Tính cách","", false);
+            create_lesson_voca(obj45);
+            
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca39(){
+            let obj = create_kanji("[質問に~]答える","[しつもんに~]こたえる","trả lời [câu hỏi]","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("[ビルが~]倒れる","[ビルが~]たおれる","[tòa nhà] đổ/(nguời) ngất","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[道を~]通る","[みちを~]とおる","đi (xuyên) qua [đường]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("死ぬ","しぬ","chết","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("西洋化する","せいようかする","Tây Âu hóa","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("びっくりする","","giật mình","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("がっかりする","","thất vọng","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("安心する","あんしんする","yên tâm","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("喧嘩する","けんかする","cãi nhau","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("離婚する","りこんする","ly hôn","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("太る","ふとる","béo ra","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("痩せる","やせる","gầy đi","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("複雑[な]","ふくざつ[な]","phức tạp","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("邪魔","じゃま","vướng, vướng víu","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("硬い","かたい","かたい","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("柔らかい","やわらかい","mềm","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("汚い","きたない","bẩn","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("悲しい","かなしい","buồn","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("恥ずかしい","はずかしい","xấu hổ","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("大人","おとな","người lớn","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("大統領","だいとうりょう","tổng thống","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("首相","しゅしょう","thủ tướng","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("津波","つなみ","sóng thần","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("台風","たいふう","bão","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("雷","かみなり","sấm, sét","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("火事","かじ","hỏa hoạn","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("事故","じこ","tai nạn, sự cố","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("ハイキング","","dã ngoại","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("[お]見合い","[お]みあい","xem mặt (để kết hôn)","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("[お]見舞い","[お]みまい","thăm người ốm","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("操作[~します]","そうさ[~します]","thao tác","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("会場","かいじょう","hội trường","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("タオル","","khăn tắm","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("石鹸","せっけん","xà phòng","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("大勢","おおぜい","nhiều người","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("途中で","とちゅうで","とちゅうで","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("洋服","ようふく","áo quần kiểu Tây","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("成人式","せいじんしき","lễ thành nhân","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("伝統的","でんとうてき","mang tính truyền thống","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("都合","つごう","つごう","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("インフルエンザ","","Dịch cúm","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("渋滞","じゅうたい","Tắc đường","", false);
+            create_lesson_voca(obj42);
+            
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca40(){
+            let obj = create_kanji("数える","かぞえる","đếm","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("測る/量る","はかる","đo, cân","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("確かめる","たしかめる","xác nhận","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[サイズが~]合う","[サイズが~]あう","vừa, phù hợp [cỡ]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("出発する","しゅっぱつする","xuất phát","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("到着する","とうちゃくする","đến nơi","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("酔う","よう","say (rượu)","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("うまくいく","","thuận lợi","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("コンテスト","","cuộc thi","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("相談する","そうだんする","そうだんする","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("動かす","うごかす","di chuyển","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("必要[な]","ひつよう[な]","cần thiết","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("天気予報","てんきよほう","dự báo thời tiết","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("爆弾","ばくだん","bom","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("急に","きゅうに","đột nhiên","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("発表会","はっぴょうかい","buổi phát biểu","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("大会","たいかい","cuộc thi, hội thi","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("表","おもて","mặt phải, mặt trước","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("裏","うら","mặt trái, mặt sau","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("間違い","まちがい","sai sót","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("傷","きず","vết xước, vết trầy, vết thương","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("ズボン","","quần","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("年寄り","としより","người già, người cao tuổi","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("長さ","ながさ","chiều dài","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("重さ","おもさ","trọng lượng","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("高さ","たかさ","chiều cao","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("大きさ","おおきさ","độ lớn, kích thước","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("一生懸命","いっしょうけんめい","chăm chỉ, gắng hết sức","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("成績","せいせき","thành tích","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("事件","じけん","vụ án","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("犯人","はんにん","tội phạm","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("ところで","","nhân tiện","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("~便","~びん","chuyến ~","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("~個","~こ","cái, chiếc","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("~キロ","","kilo, cân","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("~グラム","","gram","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("~ミリ","","mi-li-mét","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("~以上","~いじょう","trên ~","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("~以下","~いか","dưới ~","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("忘年会","ぼうねんかい","tiệc cuối năm","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("新年会","しんねんかい","tiệc đầu năm","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("二次会","にじかい","tăng hai","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("手に入れる","てにいれる","có được, thu được","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("様子","ようす","tình hình, tình trạng, dáng vẻ","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("噂","うわさ","Lời đồn","", false);
+            create_lesson_voca(obj45);
+            let obj46 = create_kanji("美しい","うつくしい","Xinh đẹp","", false);
+            create_lesson_voca(obj46);
+            let obj47 = create_kanji("オートバイ","","Mô tô phân khối lớn","", false);
+            create_lesson_voca(obj47);
+            let obj48 = create_kanji("積む","つむ","Chồng lên, tích lũy","", false);
+            create_lesson_voca(obj48);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca41(){
+            let obj = create_kanji("頂く","いただく","nhận(khiêm nhường ngữ của もらいます)","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("下さる","くださる","cho tôi(kính ngữ của くれます)","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("やる","","cho (dùng với người kém tuổi, động vật,thực vật)","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("上げる","あげる","tăng","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("下げる","さげる","giảm","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("親切にする","しんせつにする","thân thiện, thân thiết","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("いじめる","","bắt nạt","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("助ける","たすける","giúp, giúp đỡ","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("可愛い","かわいい","dễ thương","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("珍しい","めずらしい","hiếm","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("お祝い","おいわい","chúc mừng, quà mừng","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("お年玉","おとしだま","tiền mừng tuổi","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("興味","きょうみ","hứng thú, có quan tâm đến(Nに きょうみが ある có hứng thú với N)","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("情報","じょうほう","thông tin","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("文法","ぶんぽう","ngữ pháp","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("発音","はつおん","phát âm","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("猿","さる","con khỉ","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("餌","えさ","thức ăn (cho động vật)","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("おもちゃ","","đồ chơi","sách tranh", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("絵本","えほん","","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("絵はがき","えはがき","bưu thiếp tranh, bưu thiếp ảnh","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("ドライバー","","tuốc -nơ -vít","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("ハンカチ","","khăn tay","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("靴下","くつした","tất chân","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("手袋","てぶくろ","găng tay","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("幼稚園","ようちえん","trường mầm non","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("暖房","だんぼう","máy sưởi","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("冷房","れいぼう","máy lạnh","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("温度","おんど","nhiệt độ","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("祖父","そふ","ông (của mình)","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("祖母","そぼ","bà (của mình)","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("孫","まご","cháu (của mình)","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("お孫さん","おまごさん","cháu (của người khác)","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("叔父","おじ","chú, bác (của mình)","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("叔父さん","おじさん","chú, bác (của người khác)","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("叔母","おば","cô, dì, bác (của mình)","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("叔母さん","おばさん","cô, dì, bác (của người khác)","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("管理人","かんりにん","người quản lý","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("この間","このあいだ","vừa rồi","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("一言","ひとこと","đôi lời","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("お宅","おたく","nhà (kính ngữ của うち hoặc いえ )","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("どうぞお幸せに","どうぞおしあわせに","chúc hai người hạnh phúc","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("中身","なかみ","bên trong, nội dung","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("真っ白","まっしろ","trắng toát","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("素敵な","すてきな","Tuyệt vời","", false);
+            create_lesson_voca(obj45);
+            let obj46 = create_kanji("上司","じょうし","Cấp trên","", false);
+            create_lesson_voca(obj46);
+            let obj47 = create_kanji("アルバイト","","Làm thêm","", false);
+            create_lesson_voca(obj47);
+            let obj48 = create_kanji("ご馳走","ごちそう","Khao, chiêu đãi","", false);
+            create_lesson_voca(obj48);
+            let obj49 = create_kanji("亀","かめ","Con rùa","", false);
+            create_lesson_voca(obj49);
+            let obj50 = create_kanji("お姫様","おひめさま","Công chúa","", false);
+            create_lesson_voca(obj50);
+            let obj51 = create_kanji("暮らす","くらす","Sinh sống","", false);
+            create_lesson_voca(obj51);
+            let obj52 = create_kanji("陸","りく","Đất liền","", false);
+            create_lesson_voca(obj52);
+            let obj53 = create_kanji("煙","けむり","Khói","", false);
+            create_lesson_voca(obj53);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca42(){
+            let obj = create_kanji("包む","つつむ","gói, bọc","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("沸かす","わかす","đun sôi","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("混ぜる","まぜる","trộn","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("計算する","けいさんする","tính, tính toán","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("並ぶ","ならぶ","xếp hàng","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("広める","ひろめる","tuyên truyền, quảng bá","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("丈夫","じょうぶ","chắc chắn","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("アパート","","căn hộ","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("弁護士","べんごし","luật sư","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("音楽家","おんがくか","nhạc sĩ","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("子供たち","こどもたち","những đứa trẻ, bọn trẻ","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("自然","しぜん","tự nhiên","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("教育","きょういく","giáo dục","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("文化","ぶんか","văn hóa","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("社会","しゃかい","xã hội","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("政治","せいじ","chính trị","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("法律","ほうりつ","pháp luật","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("戦争","せんそう","chiến tranh","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("平和","へいわ","hòa bình","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("hòa bình","もくてき","mục đích","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("論文","ろんぶん","ろんぶん","luận văn", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("楽しみ","たのしみ","niềm vui","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("ミキサー","","máy xay","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("やかん","","ấm đun nước","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("ふた","","cái nắp","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("栓抜き","せんぬき","cái bật nắp chai","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("缶切り","かんきり","cái mở nắp hộp","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("缶詰","かんづめ","đồ hộp","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("のし袋","のしぶくろ","phong bì dùng để bỏ tiền mừng","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("風呂敷","ふろしき","khăn vuông để gói đồ kiểu Nhật","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("算盤","そろばん","bàn tính","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("体温計","たいおんけい","nhiệt kế","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("なぜ","","tại sao","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("どのくらい","","khoảng bao nhiêu","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("半分","はんぶん","một nửa","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("ローン","","khoản vay ngân hàng","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("市場調査","しじょうちょうさ","điều tra thị trường","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("スイカ","","Dưa hấu","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("最低","さいてい","Tối thiểu","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("チキンラーメン","","Mì gà","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("インスタントラーメン","","Mì ăn liền","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("丼","どんぶり","Bát tô","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("麺","めん","Mì sợi","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("割る","わる","Chia","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("注ぐ","そそぐ","Rót","", false);
+            create_lesson_voca(obj45);
+    
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca43(){
+            let obj = create_kanji("[輸出が~]増える","[ゆしゅつが~]ふえる","tăng [xuất khẩu ~]","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("[輸出が~]減る","[ゆしゅつが~]へる","giảm [xuất khẩu ~]","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[値段が~]上がる","[ねだんが~]あがる","tăng [giá cả ~]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[値段が~]下がる","[ねだんが~]さがる","giảm [giá cả ~]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[紐が~]切れる","[ひもが~]きれる","bị đứt [sợi dây ~]","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("[ボタンが~]とれる","bị tuột ra, bị bung ra [cúc áo ~]","","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[荷物が~]落ちる","[にもつが~]おちる","bị rơi [hành lí ~ ]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[ガソリンが~]無くなる","[ガソリンが~]なくなる","hết [xăng ~], mất","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("知り合う","しりあう","quen biết","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("理由","りゆう","lý do","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("変[な]","へん[な]","lạ","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("しあわせ[な]","幸せ[な]","hạnh phúc","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("楽[な]","らく[な]","nhàn nhã","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("うまい","","ngon","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("まずい","","dở","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("つまらない","","chán, không hay","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("優しい","やさしい","hiền lành","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("ガソリン","","xăng","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("火","ひ","lửa","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("パンフレット","","tờ rơi quảng cáo","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("今にも","いまにも","bất kì lúc nào","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("バラ","","hoa hồng","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("ドライブ","","lái xe ô tô","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("謝る","あやまる","Xin lỗi","", false);
+            create_lesson_voca(obj24);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca44(){
+            let obj = create_kanji("泣く","なく","khóc","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("笑う","わらう","cười","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("眠る","ねむる","ngủ","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[シャツが~]乾く","[シャツが~]かわく","[áo sơ mi] khô","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[シャツが~]濡れる","[シャツが~]ぬれる","[áo sơ mi] ướt","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("滑る","すべる","bị trơn trượt","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[事故が~]起きる","[じこが~]おきる","xảy ra [tai nạn]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("調節する","ちょうせつする","điều chỉnh","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("安全[な]","あんぜん[な]","an toàn","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("危険[な]","きけん[な]","nguy hiểm","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("濃い","こい","đậm, đặc","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("薄い","うすい","loãng, nhạt","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("厚い","あつい","dày","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("太い","ふとい","béo","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("細い","ほそい","gầy","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("空気","くうき","không khí","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("涙","なみだ","nước mắt","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("和食","わしょく","món ăn kiểu Nhật","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("洋食","ようしょく","món ăn kiểu Tây","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("おかず","","thức ăn kèm","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("量","りょう","lượng","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("~倍","~ばい","gấp ~ lần","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("シングル","","phòng đơn","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("ツイン","","phòng đôi","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("洗濯物","せんたくもの","quần áo giặt","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("どうなさいますか","","anh/chị muốn làm gì","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("カット","","cắt tóc","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("シャンプー","","dầu gội","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("表現","ひょうげん","biểu hiện","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("宿泊","しゅくはく","Ngủ lại/ Trọ lại","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("順序","じゅんじょ","Trình tự","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("別れる","わかれる","Chia tay","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("縁起が悪い","えんぎがわるい","","Điềm xui", false);
+            create_lesson_voca(obj33);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca45(){
+            let obj = create_kanji("信じる","しんじる","tin","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("キャンセルする","","hủy","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("知らせる","しらせる","thông báo","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("保証書","ほしょうしょ","phiếu bảo hành","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("領収書","りょうしゅうしょ","hóa đơn","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("キャンプ","","cắm trại","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("中止","ちゅうし","dừng, hủy","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("点","てん","điểm, điểm số","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("梅","うめ","hoa mơ","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("無理に","むりに","cố, gắng (làm quá khả năng)","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("楽しみにしています","たのしみにしています","tôi rất mong chờ","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("以上です","いじょうです","xin hết","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("大学生","だいがくせい","sinh viên đại học","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("係員","かかりいん","người phụ trách","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("コース","","đường chạy ma-ra- tông","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("スタート","","xuất phát","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("悩み","なやみ","điều khổ tâm","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("回答","かいとう","câu trả lời","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("それでも","","kể cả như thế, mặc dù như thế","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("謝る","あやまる","xin lỗi","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("贈り物","おくりもの","quà tặng","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("目覚まし時計","めざましどけい","đồng hồ báo thức","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("号室","ごうしつ","số phòng","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("[ベルが~]鳴ります","[ベルが~]なります","[chuông] kêu, reo","", false);
+            create_lesson_voca(obj24);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca46(){
+            let obj = create_kanji("渡す","わたす","đưa, trao","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("帰ってくる","かえってくる","trở về","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("[バスが~]出る","[バスが~]でる","xuất phát, rời bến [xe buýt ~]","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[荷物が~]届く","[にもつが~]とどく","đến [hành lý ~]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("[大学に~]入学する","[だいがくに~]にゅうがくする","nhập học [đại học]","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("[大学を~]卒業する","[だいがくを~]そつぎょうする","tốt nghiệp [đại học]","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("焼く","やく","nướng","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[肉が~]焼ける","[にくが~]やける","[thịt] nướng chín/bị cháy (nhà)","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("留守","るす","vắng nhà, đi vắng","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("宅配便","たくはいびん","dịch vụ chuyển phát tận nhà","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("航空便","こうくうびん","gửi đường hàng không","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("船便","ふなびん","gửi đường biển","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("原因","げんいん","nguyên nhân","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("具合","ぐあい","tình trạng, thể trạng","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("こちら","","phía tôi","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("~のところ","","chỗ ~","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("半年","はんとし","nửa năm","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("ちょうど","","vừa đúng","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("たった今","たったいま","vừa mới","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("注射[~する]","ちゅうしゃ[~する]","tiêm","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("宝庫","ほうこ","kho báu","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("今いいでしょうか","いまいいでしょうか","bây giờ làm phiền anh/chị có được không?","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("お待たせしました","おまたせしました","xin lỗi vì đã để anh/chị chờ lâu","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("暗証番号","あんしょうばんごう","mật mã","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("順番","じゅんばん","thứ tự, lần lượt","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("信号","しんごう","đèn tín hiệu","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("用意する","よういする","よういする","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("ブランド","","Thương hiệu","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("ついていない","","Không theo mong muốn","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("床","ゆか","Sàn nhà","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("宅配便","たくはいびん","Chuyển phát đến tận nhà","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("慌てて","あわてて","Vội vàng","", false);
+            create_lesson_voca(obj32);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca47(){
+            let obj = create_kanji("[風が~]吹く","[かぜが~]ふく","","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("[ごみが~]燃える","[ごみが~]もえる","cháy [rác ~]","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("亡くなる","なくなる","qua đời(từ nói tránh của しにます)","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("集まる","あつまる","tập trung, tập hợp lại","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("思い出す","おもいだす","nhớ ra","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("[人と~]別れる","[ひとと~]わかれる","chia tay [với người...]","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("[おとが~]する","[音が~]する","có [tiếng, âm thanh]","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("[あじが~]する","[味が~]する","có [vị]","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("[においが~]する","","có [mùi]","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("厳しい","きびしい","nghiêm khắc","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("ひどい","","khủng khiếp, tồi tệ","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("怖い","こわい","sợ, đáng sợ","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("実験","じっけん","thực nghiệm, thí nghiệm","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("データ","","dữ liệu","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("人口","じんこう","dân số","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("匂い","におい","mùi","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("科学","かがく","khoa học","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("医学","いがく","y học","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("文学","ぶんがく","văn học","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("パトカー","","xe tuần tra cảnh sát","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("救急車","きゅうきゅうしゃ","xe cấp cứu","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("賛成","さんせい","tán thành","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("反対","はんたい","phản đối","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("~によると","","theo ~ (biểu thị nguồn thông tin)","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("男性","だんせい","nam giới","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("女性","じょせい","nữ giới","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("長生き","ながいき","sống lâu","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("化粧[~する]","けしょう[~する]","trang điểm","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("緑","みどり","màu xanh lá, cây xanh","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("祇園祭り","ぎおんまつり","Lễ hội Gion","", false);
+            create_lesson_voca(obj30);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca48(){
+            let obj = create_kanji("降ろす、下ろす","おろす","lấy xuống, hạ xuống","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("届ける","とどける","đưa đến, chuyển đến","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("世話をする","せわをする","chăm sóc","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("録音する","ろくおんする","ghi âm","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("楽しむ","たのしむ","mong chờ, vui vẻ, tận hưởng","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("嫌[な]","いや[な]","không thích","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("塾","じゅく","lò luyện thi, nơi học thêm","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("生徒","せいと","học sinh","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("親","おや","cha mẹ","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("両親","りょうしん","cha mẹ, phụ huynh","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("赤ちゃん","あかちゃん","em bé","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("~世紀","~せいき","thế kỷ","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("営業","えいぎょう","kinh doanh","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("入管","にゅうかん","cục quản lý nhập cảnh","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("スケジュール","","thời khóa biểu, lịch làm việc","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("スピード","","tốc độ","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("それまでに","","cho đến lúc đấy","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("特に","とくに","đặc biệt là","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("~番線","~ばんせん","đường tàu số ~","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("都合","つごう","thuận tiện","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("丸い","まるい","tròn","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("習字","しゅうじ","Luyện chữ","", false);
+            create_lesson_voca(obj22);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca49(){
+            let obj = create_kanji("利用する","りようする","sử dụng","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("[会社に~]勤める","[かいしゃに~]つとめる","làm việc [ở công ty]","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("開発する","かいはつする","phát triển","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("[椅子に~]かける","[いすに~]掛ける","ngồi xuống [ghế]","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("目指す","めざす","nhắm đến, hướng đến","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("過ごす","すごす","trải qua","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("いらっしゃる","","ở, đi, đến (kính ngữ của います、いきます、きます)","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("召し上がる","めしあがる","ăn uống(kính ngữ của たべます、のみます)","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("おっしゃる","","nói(kính ngữ của いいます)","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("なさる","","làm(kính ngữ của します)","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("ご覧になる","ごらんになる","xem(kính ngữ của みます)","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("ご存知です","ごぞんじです","biết(kính ngữ của しっています)","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("挨拶","あいさつ","chào hỏi(~をします : chào)","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("講演会","こうえんかい","buổi nói chuyện","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("医学部","いがくぶ","Khoa Y","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("細胞","さいぼう","tế bào","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("旅館","りょかん","nhà trọ, lữ quán","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("経歴","けいれき","quá trình làm việc, lý lịch việc làm","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("バス亭","バスてい","trạm xe buýt","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("奥様","おくさま","vợ của người khác(kính ngữ của おくさん)","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("~様","~さま","kính ngữ của ~ さん","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("たまに","","thi thoảng","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("どなたでも","","vị nào cũng(kính ngữ của だれでも)","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("進む","すすむ","Tiến lên/ Tiến triển","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("マウス","","Chuột","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("ノーベル賞","ノーベルしょう","Giải Nobel","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("受賞","じゅしょう","Nhận giải","", false);
+            create_lesson_voca(obj27);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function voca50(){
+            let obj = create_kanji("参る","まいる","đi, đến(khiêm nhường ngữ của いきます、きます)","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("おる","","ở(khiêm nhường ngữ của います)","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("いただく","","ăn, uống, nhận(khiêm nhường ngữ của たべます、のみます、もらいます)","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("申す","もうす","nói(khiêm nhường ngữ của いいます)","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("致す","いたす","làm(khiêm nhường ngữ của します)","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("拝見する","はいけんする","xem(khiêm nhường ngữ của みます)","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("存じる","ぞんじる","biết(khiêm nhường ngữ của しります)","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("伺う","うかがう","hỏi, đến thăm(khiêm nhường ngữ của ききます、いきます)","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("お目にかかる","おめにかかる","gặp(khiêm nhường ngữ của あいます)","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("[コーヒーを~]入れる","[コーヒーを~]いれる","pha [cà phê]","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("用意する","よういする","chuẩn bị sẵn","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("緊張する","きんちょうする","căng thẳng, hồi hộp lo lắng","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("応援する","おうえんする","động viên, cổ vũ","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("感謝する","かんしゃする","biết ơn","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("再来週","さらいしゅう","tuần sau nữa","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("再来月","さらいげつ","tháng sau nữa","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("再来年","さらいねん","năm sau nữa","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("私","わたくし","tôi(khiêm nhường ngữ của わたし)","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("ガイド","","hướng dẫn viên du lịch","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("メールアドレス","","địa chỉ email","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("スケジュール","","lịch làm việc, lịch trình","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("賞金","しょうきん","tiền thưởng","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("地球","ちきゅう","trái đất","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("心から","こころから","từ đáy lòng","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("区","く","quận","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("県","けん","tỉnh","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("迷惑","めいわく","Phiền hà, quấy rầy","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("おかげさまで","","Nhờ ơn trời","", false);
+            create_lesson_voca(obj28);
+            
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function vocatemplate(){
+            // let obj = create_kanji("見る、診る","みる","nhìn, xem/ khám bệnh","", false);
+            // create_lesson_voca(obj);
+            let obj = create_kanji("","","","", false);
+            create_lesson_voca(obj);
+            let obj2 = create_kanji("","","","", false);
+            create_lesson_voca(obj2);
+            let obj3 = create_kanji("","","","", false);
+            create_lesson_voca(obj3);
+            let obj4 = create_kanji("","","","", false);
+            create_lesson_voca(obj4);
+            let obj5 = create_kanji("","","","", false);
+            create_lesson_voca(obj5);
+            let obj6 = create_kanji("","","","", false);
+            create_lesson_voca(obj6);
+            let obj7 = create_kanji("","","","", false);
+            create_lesson_voca(obj7);
+            let obj8 = create_kanji("","","","", false);
+            create_lesson_voca(obj8);
+            let obj9 = create_kanji("","","","", false);
+            create_lesson_voca(obj9);
+            let obj10 = create_kanji("","","","", false);
+            create_lesson_voca(obj10);
+            let obj11 = create_kanji("","","","", false);
+            create_lesson_voca(obj11);
+            let obj12 = create_kanji("","","","", false);
+            create_lesson_voca(obj12);
+            let obj13 = create_kanji("","","","", false);
+            create_lesson_voca(obj13);
+            let obj14 = create_kanji("","","","", false);
+            create_lesson_voca(obj14);
+            let obj15 = create_kanji("","","","", false);
+            create_lesson_voca(obj15);
+            let obj16 = create_kanji("","","","", false);
+            create_lesson_voca(obj16);
+            let obj17 = create_kanji("","","","", false);
+            create_lesson_voca(obj17);
+            let obj18 = create_kanji("","","","", false);
+            create_lesson_voca(obj18);
+            let obj19 = create_kanji("","","","", false);
+            create_lesson_voca(obj19);
+            let obj20 = create_kanji("","","","", false);
+            create_lesson_voca(obj20);
+            let obj21 = create_kanji("","","","", false);
+            create_lesson_voca(obj21);
+            let obj22 = create_kanji("","","","", false);
+            create_lesson_voca(obj22);
+            let obj23 = create_kanji("","","","", false);
+            create_lesson_voca(obj23);
+            let obj24 = create_kanji("","","","", false);
+            create_lesson_voca(obj24);
+            let obj25 = create_kanji("","","","", false);
+            create_lesson_voca(obj25);
+            let obj26 = create_kanji("","","","", false);
+            create_lesson_voca(obj26);
+            let obj27 = create_kanji("","","","", false);
+            create_lesson_voca(obj27);
+            let obj28 = create_kanji("","","","", false);
+            create_lesson_voca(obj28);
+            let obj29 = create_kanji("","","","", false);
+            create_lesson_voca(obj29);
+            let obj30 = create_kanji("","","","", false);
+            create_lesson_voca(obj30);
+            let obj31 = create_kanji("","","","", false);
+            create_lesson_voca(obj31);
+            let obj32 = create_kanji("","","","", false);
+            create_lesson_voca(obj32);
+            let obj33 = create_kanji("","","","", false);
+            create_lesson_voca(obj33);
+            let obj34 = create_kanji("","","","", false);
+            create_lesson_voca(obj34);
+            let obj35 = create_kanji("","","","", false);
+            create_lesson_voca(obj35);
+            let obj36 = create_kanji("","","","", false);
+            create_lesson_voca(obj36);
+            let obj37 = create_kanji("","","","", false);
+            create_lesson_voca(obj37);
+            let obj38 = create_kanji("","","","", false);
+            create_lesson_voca(obj38);
+            let obj39 = create_kanji("","","","", false);
+            create_lesson_voca(obj39);
+            let obj40 = create_kanji("","","","", false);
+            create_lesson_voca(obj40);
+            let obj41 = create_kanji("","","","", false);
+            create_lesson_voca(obj41);
+            let obj42 = create_kanji("","","","", false);
+            create_lesson_voca(obj42);
+            let obj43 = create_kanji("","","","", false);
+            create_lesson_voca(obj43);
+            let obj44 = create_kanji("","","","", false);
+            create_lesson_voca(obj44);
+            let obj45 = create_kanji("","","","", false);
+            create_lesson_voca(obj45);
+            let obj46 = create_kanji("","","","", false);
+            create_lesson_voca(obj46);
+            let obj47 = create_kanji("","","","", false);
+            create_lesson_voca(obj47);
+            let obj48 = create_kanji("","","","", false);
+            create_lesson_voca(obj48);
+            let obj49 = create_kanji("","","","", false);
+            create_lesson_voca(obj49);
+            let obj50 = create_kanji("","","","", false);
+            create_lesson_voca(obj50);
+
+            create_list_voca(vocabulary_lesson);
+
+            vocabulary_lesson = [];
+        }
+
+        function create_lesson_voca(obj){
+            vocabulary_lesson.push(obj);
+        }
+
+        function create_list_voca(arr){
+            let crrArr = [...arr];
+            list_vocabulary.push(crrArr);
+        }
+
+
+        //kiem tra noi dung la ngu phap, tu vung hay kanji
+        function changeContent(){
+            document.getElementById("beto").style.display = "block";
+            document.getElementById("kanji").style.display= "block";
+            document.getElementById("hira").style.display= "block";
+            document.getElementById("vn").style.display= "none";
+            let content_value = document.getElementById("content-select").value;   
+            let start_value = document.getElementById("start-select").value;
+            let end_value  = document.getElementById("end-select").value; 
+            
+
+            if(content_value == "grammar"){
+                
+                getlist(start_value,end_value,list_grammar);
+                
+            }else if(content_value == "vocabulary"){
+                getlist(start_value,end_value,list_vocabulary);
+               
+            }else {
+              
+                list_kanji = [];
+                initKanji();
+                getlist(start_value,end_value,list_kanji);
+                
+            }
+
+            if(content_value == "kanji"){
+                content_value ="hán tự"
+            }else if(content_value =="vocabulary"){
+                content_value = "từ vựng"
+            }else{
+                content_value = "ngữ pháp"
+            }
+            
+            setStartEnd(start_value,end_value,content_value);
+            
+        }
+
+        //lay danh sach bai hoc
+        function getlist(start,end,arr){
+            
+            current_index = 0;
+            display_list = [];
+            let j = start-26;
+            for(let i = 0; i<=(parseInt(end)-parseInt(start));i++){
+               
+               if(arr[i+j]){
+                display_list.push(arr[i+j]);
+               }else{
+                    current_index = 0;
+               }
+                
+            }
+            
+            setList();
+            setForget();
+            displayCard(current_index);
+        }
+
+        //set list tu vung
+        function setList(){
+            current_index = 0;
+            current_list = [].concat(...display_list);
+            current_list.sort(() => 0.5 - Math.random());
+        }
+
+
+        //tao list chua nho
+        function setForget(){
+            forget_list = [];
+            forget_list = current_list.filter((value) =>value.isRemembered == false);
+            
+        }
+
+        //hien thi
+        function displayCard(number){
+            // <p id="beto">Vn</p>
+            document.getElementById("card-content").style.display = "block";
+            document.getElementById("card-check").style.display = "none";
+            let beto = document.getElementById("beto");
+            let hira = document.getElementById("hira");
+            let kanji = document.getElementById("kanji");
+            let vn = document.getElementById("vn");
+            let current_element = forget_list[number];
+            let num = document.getElementById("num");
+            num.innerHTML = (number+1) + "/"+forget_list.length;
+            beto.innerText = current_element.beto;
+            hira.innerHTML = current_element.hiragana;
+            kanji.innerHTML = current_element.kanji;
+            vn.innerHTML = current_element.imi;
+
+            // document.getElementById("beto").style.display = "block";
+            // document.getElementById("kanji").style.display= "block";
+            // document.getElementById("hira").style.display= "block";
+            // document.getElementById("vn").style.display= "none";
+            // document.getElementById("beto").style.opacity = "1";
+            // document.getElementById("kanji").style.opacity= "1";
+            // document.getElementById("hira").style.opacity= "1";
+            // document.getElementById("vn").style.opacity= "1";
+        
+        }
+
+
+        //da thuoc
+        function remembered(){
+            if(current_index <forget_list.length){
+                forget_list[current_index].isRemembered = true;
+            }
+           
+            current_index++;
+            if(current_index <forget_list.length){
+                
+                displayCard(current_index)
+            }else{
+                document.getElementById("card-content").style.display = "none";
+                document.getElementById("card-check").style.display = "block";
+                let lenght_forget = forget_list.filter(value => value.isRemembered == false).length;
+                if(lenght_forget == 0){
+                    if(start_lesson == end_lesson){
+                        document.getElementById("check-forget").innerHTML = "Rất tuyệt vời, bạn đã hoàn thành " + curent_content + " bài " + start_lesson; 
+                        document.getElementById("again").style.display = "none";
+                    }else{
+                        document.getElementById("check-forget").innerHTML = "Rất tuyệt vời, bạn đã hoàn thành " + curent_content + " từ bài " + start_lesson + " đến bài " + end_lesson; 
+                        document.getElementById("again").style.display = "none";
+                    }
+                    
+                }else {
+                    document.getElementById("again").style.display = "block";
+                    document.getElementById("check-forget").innerHTML = "Bạn vẫn còn " + lenght_forget +  " tử ở bài này chưa thuộc. Tiếp tục làm lại nào"; 
+                }
+                
+            }
+            
+        }
+
+        //chua thuoc
+        function forget(){
+            if(current_index <forget_list.length){
+                forget_list[current_index].isRemembered = false;
+            }
+            
+            
+            current_index++;
+            if(current_index <forget_list.length){
+                
+                displayCard(current_index)
+            }else{
+                document.getElementById("card-content").style.display = "none";
+                document.getElementById("card-check").style.display = "block";
+                let lenght_forget = forget_list.filter(value => value.isRemembered == false).length;
+                if(lenght_forget == 0){
+                    document.getElementById("check-forget").innerHTML = "Rất tuyệt vời, bạn đã hoàn thành " + curent_content + " từ bài " + start_lesson + " đến bài " + end_lesson; 
+                    document.getElementById("again").style.display = "none";
+                }else {
+                    document.getElementById("again").style.display = "block";
+                    document.getElementById("check-forget").innerHTML = "Bạn vẫn còn " + lenght_forget +  " tử ở bài này chưa thuộc. Tiếp tục làm lại nào"; 
+                }
+            }
+        }
+
+        //tiep tuc kiem tra
+        function again(){
+            current_index = 0;
+            forget_list = forget_list.filter(value =>value.isRemembered == false);
+            if(forget_list.length != 0){
+                displayCard(current_index);
+                document.getElementById("beto").style.display = "block";
+                document.getElementById("kanji").style.display= "block";
+                document.getElementById("hira").style.display= "block";
+                document.getElementById("vn").style.display= "none";
+            }else{
+               
+            }
+           
+        }
+
+        function setStartEnd(start,end,content){
+            start_lesson = start;
+            end_lesson = end;
+            curent_content = content;
+        }
+
+        setHeightFlashCard();
+        var flashcardContainer = document.getElementById("flashcard-container");
+
+        function generateFlashcards() {
+            var contentSelect = document.getElementById("content-select");
+            var selectedContent = contentSelect.options[contentSelect.selectedIndex].value;
+
+            var startSelect = document.getElementById("start-select");
+            var endSelect = document.getElementById("end-select");
+            var startValue = parseInt(startSelect.value);
+            var endValue = parseInt(endSelect.value);
+
+            flashcardContainer.innerHTML = "";
+
+            for (var i = startValue; i <= endValue; i++) {
+                var flashcard = createFlashcard(i, selectedContent);
+                flashcardContainer.appendChild(flashcard);
+            }
+        }
+
+        function createFlashcard(number, content) {
+            var card = document.createElement("div");
+            card.classList.add("card");
+            card.onclick = flipCard;
+
+        }
+    
+
+        function updateEndSelect() {
+            var startSelect = document.getElementById("start-select");
+            var endSelect = document.getElementById("end-select");
+
+            var startValue = parseInt(startSelect.value);
+            var endValue = parseInt(endSelect.value);
+
+            if (startValue > endValue) {
+                endSelect.value = startValue;
+            }
+            changeContent();
+        }
+
+        function updateStartSelect() {
+            var startSelect = document.getElementById("start-select");
+            var endSelect = document.getElementById("end-select");
+
+            var startValue = parseInt(startSelect.value);
+            var endValue = parseInt(endSelect.value);
+
+            if (startValue > endValue) {
+                startSelect.value = endValue;
+            }
+            changeContent();
+        }
+
+      
+        //xoay the flashcard
+        function rotate(){
+            
+            let flashcard_rotate = document.getElementById("card-content");
+            // flashcard_rotate.style.transform = "rotate(180deg)";
+            // flashcard_rotate.style.animation = "flip-animate 1s linear";
+            if( rotationDegree == 0){
+                rotationDegree += 360;
+            }else{
+                rotationDegree =0;
+            }
+            flashcard_rotate.style.transform = `rotateY(${rotationDegree}deg)`;
+            if(isDisplayContent){
+                
+                document.getElementById("beto").style.opacity = "0";
+                document.getElementById("kanji").style.opacity= "0";
+                document.getElementById("hira").style.opacity= "0";
+                document.getElementById("vn").style.opacity= "1";
+                setTimeout(() =>{
+                    document.getElementById("beto").style.display = "none";
+                    document.getElementById("kanji").style.display= "none";
+                    document.getElementById("hira").style.display= "none";
+                    document.getElementById("vn").style.display= "block";
+                }, 100);
+                
+                isDisplayContent = !isDisplayContent;
+            }else{
+               
+                document.getElementById("beto").style.opacity= "1";
+                document.getElementById("kanji").style.opacity= "1";
+                document.getElementById("hira").style.opacity= "1";
+                document.getElementById("vn").style.opacity= "0";
+                setTimeout(() =>{
+                    document.getElementById("beto").style.display = "block";
+                    document.getElementById("kanji").style.display= "block";
+                    document.getElementById("hira").style.display= "block";
+                    document.getElementById("vn").style.display= "none";
+                }, 100);
+                
+                isDisplayContent = !isDisplayContent;
+            }
+            // flashcard_rotate.style.animation = "flip-animate2 2s linear";
+        }
+
+       //đisplay-hidden hira-beto
+       function toggleBeto(){
+        //hán việt
+        let betoBtn = document.getElementById("betoBtn");
+        let betoContent = document.getElementById("beto");
+        betoBtn.addEventListener("click",()=>{
+           if(!betoBtn.checked){
+                betoContent.style.visibility = "hidden";
+           }else{
+                betoContent.style.visibility = "visible";
+           }
+        })
+
+        //hiragana
+        let hiraBtn = document.getElementById("hiraBtn");
+        let hiraContent = document.getElementById("hira");
+        hiraBtn.addEventListener("click",()=>{
+            
+           if(!hiraBtn.checked){
+    
+                hiraContent.style.visibility = "hidden";
+           }else{
+                hiraContent.style.visibility = "visible";
+           }
+        })
+       }
+
+
+        generateFlashcards();
+        function setHeightFlashCard(){
+            let card = document.getElementById("flashcard");
+        let pos = card.offsetTop;
+       
+        let navi = document.getElementById("navi");
+        let navipos = navi.offsetTop;
+      
+        
+        let height = navipos-pos-100 +"px";
+        // card.style.height = height
+        document.getElementById("flashcard").style.height = height;
+        }
+    </script>
+</body>
+<body>
+    
+</body>
+</html>
